@@ -5,10 +5,11 @@ namespace Bookstore.Models
 {
     public class Cls_SignInFields
     {
-        [Required]
+        [Required(ErrorMessage = "Please enter a valid username")]
         public string Username { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Password field cannot be blank")]
+        [StringLength(16 , MinimumLength = 4, ErrorMessage = "Password must contain between 4 and 16 Characters")]
         public string Password { get; set; }
     }
 

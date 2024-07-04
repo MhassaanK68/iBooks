@@ -1,4 +1,4 @@
-﻿@model Bookstore.Models.UsersModel;
+﻿@model Bookstore.Models.Cls_SignUpFields;
 @{
     ViewData["Title"] = "Privacy Policy";
 }
@@ -14,7 +14,7 @@
             
             <h1 class="mb-4 display-1">Sign Up</h1>
             <p class="lead"> by registering with <strong>iBooks</strong> you will collect loyalty points and can avail discounts using them</p>
-            <form asp-action="Index" asp-controller="SignUp" method="post" class="MainFont">
+            <form asp-action="SignUp" asp-controller="Account" method="post" class="MainFont">
                 
                 <div class="form-floating wt">
                     <input asp-for="Username" class="form-control" placeholder="name@example.com" />

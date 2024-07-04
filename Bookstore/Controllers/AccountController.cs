@@ -1,5 +1,6 @@
 ﻿using Bookstore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace Bookstore.Controllers
 {
@@ -20,8 +21,9 @@ namespace Bookstore.Controllers
         }
 
         //SignUp Form Returning Data
+
         [HttpPost]
-        public IActionResult SignUp(UsersModel NewUser)
+        public IActionResult SignUp(Cls_SignUpFields NewUser)
         {
 
             bool IsUsernameExists = UsersDB.Users.Any(UserObj => UserObj.Username == NewUser.Username);
@@ -29,13 +31,20 @@ namespace Bookstore.Controllers
             // Makes sure form was valid and primary key wasnt repeated
             if (ModelState.IsValid && !IsUsernameExists)
             {
-                UsersDB.Users.Add(NewUser);
+                // Converting SignUp Model To User Model
+                UsersModel UsrToAdd = new UsersModel();
+                UsrToAdd.Username = NewUser.Username;
+                UsrToAdd.Password = NewUser.Password;
+                UsrToAdd.Email = NewUser.Email;
 
+                // Adding User Model Instance
+                UsersDB.Users.Add(UsrToAdd);
                 UsersDB.SaveChanges();
                 ModelState.Clear();
+
                 // Success Message
                 TempData["SignUp_Success"] = "Your Account Has Been Created";
-                return RedirectToAction("Index", "SignIn");
+                return RedirectToAction("SignIn", "Account");
             }
             else if (IsUsernameExists)
             {
@@ -64,7 +73,7 @@ namespace Bookstore.Controllers
                 {
                     HttpContext.Session.SetString("UserSession", TempUser.Username);
                     TempData["IsLoginFail"] = null;
-                    return RedirectToAction("logout");
+                    return RedirectToAction("MyAccount");
                 }
                 else
                 {
@@ -78,7 +87,16 @@ namespace Bookstore.Controllers
         
         public IActionResult MyAccount()
         {
-            return View();
+            if (HttpContext.Session.GetString("UserSession") != null)
+            {
+                ViewBag.ActiveSession = HttpContext.Session.GetString("UserSession").ToString();
+                return View();
+            }
+            else
+            {
+                ViewBag.ActiveSession = "Expired";
+                return RedirectToAction("Login");
+            }
         }
     }
 }

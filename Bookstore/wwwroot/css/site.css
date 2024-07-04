@@ -30,6 +30,12 @@
     overflow: hidden;
 }
 
+.ht {
+    max-height: 100vw;
+    overflow: scroll;
+}
+
+
 .resText {
     font-size: calc(1rem + 1.1vw);
 }
@@ -41,4 +47,29 @@
 
 #FormFailure{
     
+}
+
+
+.scroll-container {
+    max-height: calc(540px + 20vw);
+    overflow-y: auto; /* Use auto instead of scroll */
+    overflow-x: hidden;
+}
+
+/* Customize scrollbar */
+.scroll-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+    background: none;
 }
