@@ -1,0 +1,46 @@
+body {
+    background-color: #131515;
+}
+
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+.catalog-container{
+
+    overflow-x: hidden;
+    white-space: nowrap;
+    
+    
+}
+
+.category-heading{
+    font-family: Inter;
+    color: white;
+    margin-left: -5vw;
+
+}
+
+.catalog-item {
+    margin-right: 20px;
+    aspect-ratio: 2 / 3;
+}
+
+.arrow-buttons {
+    font-size: 10px;
+    color: white;
+    cursor: pointer;
+
+}
