@@ -1,5 +1,5 @@
 body {
-    background-color: #131515;
+    background-color: #141414;
 }
 
 .material-icons.md-18 {
@@ -20,7 +20,8 @@ body {
 
 .catalog-container{
 
-    overflow-x: hidden;
+    overflow: hidden;
+    
     white-space: nowrap;
     
     
@@ -36,6 +37,11 @@ body {
 .catalog-item {
     margin-right: 20px;
     aspect-ratio: 2 / 3;
+    border-radius: 8px;
+}
+
+.catalog-item:hover {
+    transform: scale(1.1);
 }
 
 .arrow-buttons {
