@@ -1,0 +1,58 @@
+﻿@model Bookstore.Models.Users;
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+
+
+
+
+<div class="cardbg container mt-5 pt-5 pb-5" id="container"  >
+
+    <div class="row">
+        <div class="col-12 ">
+            
+            <h1 class="mb-4 display-1">Sign Up</h1>
+            <p class="lead"> by registering with <strong>iBooks</strong> you will collect loyalty points and can avail discounts using them</p>
+            <form asp-action="Index" asp-controller="SignUp" method="post" class="MainFont">
+                
+                <div class="form-floating wt">
+                    <input asp-for="UserName" class="form-control" placeholder="name@example.com" />
+                    <label asp-for="UserName"> Enter Username </label>
+                </div>
+                <span class="pb-3 text-danger" asp-validation-for="UserName"></span>
+                @{
+                    if (TempData["UsernameUsed"] != null)
+                    {
+                        <span class="pb-3 text-danger">@TempData["UsernameUsed"]</span>                        
+                    }
+                }
+                
+                <br />
+                <div class="form-floating wt">
+                    <input asp-for="Email" class="form-control" placeholder="name@example.com" />
+                    <label for="Email"> Enter Email</label>
+                </div>
+                <span class="pb-3 text-danger" asp-validation-for="Email"></span>
+                <br />
+                <div class="form-floating wt">
+                    <input asp-for="Password" class="form-control" placeholder="name@example.com" type="password" />
+                    <label for="Password"> Enter Password </label>
+                </div>
+                <span class="pb-3 text-danger" asp-validation-for="Password"></span>
+                <br />
+                <div class="form-floating wt">
+                    <input asp-for="Password2" class="form-control" placeholder="name@example.com" type="password"/>
+                    <label for="Password2"> Confirm Password </label>
+                </div>
+                <span class="pb-3 text-danger" asp-validation-for="Password2"></span>
+                <br/>
+                <input type="submit" value="Sign Up" class="btn btn-outline-danger mt-3"/>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,44 @@
+.cardbg {
+    background-color: aliceblue;
+}
+
+#FormCol {
+    max-height: 100px;
+}
+
+
+
+/* Shared */
+.text-family-main {
+    font-family: Roboto;
+    font-weight: 500;
+}
+
+.headings {
+
+    font-weight: 600;
+    font-family: Inter;
+}
+
+.dSection {
+
+    height: 400px;
+}
+
+.ht {
+    max-height: 540px;
+    overflow: hidden;
+}
+
+.resText {
+    font-size: calc(1rem + 1.1vw);
+}
+
+.XLSection{
+    height: 100%;
+    border: solid;
+}
+
+#FormFailure{
+    
+}

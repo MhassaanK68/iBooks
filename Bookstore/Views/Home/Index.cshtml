@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var Featured = ViewData["Featured-Products"] as List<Book>;
+    Console.WriteLine(Featured);
+}
+
+<head>
+    <title>@ViewData["Title"] - Bookstore</title>
+    <link href="~/css/home.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Bookstore.styles.css" asp-append-version="true" />
+    
+</head>
+
+
+
+<body class="">
+
+    <div class="px-4 py-5 text-center mt-5 border-bottom dSection">
+       <img class="d-block mx-auto mb-1 image-fluid" src="/Assets/Images/logo.png" alt="" width="102" height="87">
+        <h1 class="display-5 fw-bold text-body-emphasis">Unlimited Text Books, Audio Books and More</h1>
+
+            <p class="lead mb-4 resText">Read Anywhere. Cancel Anytime.</p>           
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="#"><button type="button" class="btn btn-outline-secondary btn-lg px-4">Explore Catalog</button></a>
+            <a href="/SignUp"><button type="button" class="btn btn-primary btn-lg px-4 gap-">Start Membership</button></a>
+            </div>
+            @* <p class="mt-2">Ready to get started? Start Your Membership Now.</p> *@
+    </div>
+
+
+    
+</body>
