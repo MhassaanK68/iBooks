@@ -9,6 +9,6 @@ namespace Bookstore.Models
             
         }
 
-        public DbSet<Users> Users{ get; set; }
+        public DbSet<UsersModel> Users { get; set; }
     }
 }
