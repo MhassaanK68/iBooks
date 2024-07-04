@@ -5,13 +5,13 @@ using System.Composition.Convention;
 
 namespace Bookstore.Models
 {
-    public class Users
+    public class UsersModel
     {
         [Column]
         public string Email { get; set; }
 
         [Key]
-        public string UserName { get; set; }
+        public string Username { get; set; }
         
         [Column]
         public string Password { get; set; }

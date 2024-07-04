@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bookstore.Models
 {
-    public class SignInFields
+    public class Cls_SignInFields
     {
         [Required]
         public string Username { get; set; }
@@ -12,7 +12,7 @@ namespace Bookstore.Models
         public string Password { get; set; }
     }
 
-    public class SignUpFields
+    public class Cls_SignUpFields
     {
         [Required(ErrorMessage = "Please choose a username.")]
         [MaxLength(15, ErrorMessage = "Username can not exceed 15 characters.")]
@@ -24,7 +24,7 @@ namespace Bookstore.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Please choose a password.")]
-        [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&/])[A-Za-z\\d$@$!%*#?&/]{8,}$", ErrorMessage = "Password must have 8+ characters, atleast 1 Alphabet 1 Number and 1 Special Character")]2
+        [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&/])[A-Za-z\\d$@$!%*#?&/]{8,}$", ErrorMessage = "Password must have 8+ characters, atleast 1 Alphabet 1 Number and 1 Special Character")]
         [MaxLength(16)]
         public string Password { get; set; }
 
