@@ -17,10 +17,10 @@
             <form asp-action="Index" asp-controller="SignUp" method="post" class="MainFont">
                 
                 <div class="form-floating wt">
-                    <input asp-for="UserName" class="form-control" placeholder="name@example.com" />
-                    <label asp-for="UserName"> Enter Username </label>
+                    <input asp-for="Username" class="form-control" placeholder="name@example.com" />
+                    <label asp-for="Username"> Enter Username </label>
                 </div>
-                <span class="pb-3 text-danger" asp-validation-for="UserName"></span>
+                <span class="pb-3 text-danger" asp-validation-for="Username"></span>
                 @{
                     if (TempData["UsernameUsed"] != null)
                     {

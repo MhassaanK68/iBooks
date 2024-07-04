@@ -1,4 +1,4 @@
-﻿@model Bookstore.Models.UsersModel;
+﻿@model Bookstore.Models.Cls_SignInFields;
 @{
     Layout = null; // This line specifies no layout
     
@@ -72,10 +72,10 @@
 
         <h1 class="h3 mt-3 mb-3 fw-normal headings">Sign In</h1>
 
-        <span class="text-danger" asp-validation-for="UserName"> </span>
+        <span class="text-danger" asp-validation-for="Username"> </span>
         <div class="form-floating">
-            <input class="form-control" asp-for="UserName" placeholder="name@example.com">
-            <label asp-for="UserName">Username</label>
+            <input class="form-control" asp-for="Username" placeholder="name@example.com">
+            <label asp-for="Username">Username</label>
         </div>
         <div class="form-floating">
             <input type="password" class="form-control" asp-for="Password" placeholder="Password">
