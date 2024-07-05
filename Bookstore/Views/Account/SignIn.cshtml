@@ -69,18 +69,17 @@
                     </div>
 
                 }
-            }
-
-            @{
-                if (ViewBag.ActiveSession == "Expired")
-                {
-                    <div class="text-center " id="FormFailure">
-                        <strong>You Have Been Logged Out</strong>
-                        <p style="margin: 0px;">Please <a class="link-dark" href="#">Login Again</a> </p>
-                    </div>
-
+                else if (ViewData["Session"] == null)
+                {             
+                        <div class="text-center" id="FormFailure">
+                            <strong>You Are Not Logged In</strong>
+                            @*<p style="margin: 0px;">Please Sign In</p>*@
+                        </div>
+                    
                 }
             }
+
+
 
         <h1 class="h3 mt-3 mb-3 fw-normal headings">Sign In</h1>
         <div class="form-floating">

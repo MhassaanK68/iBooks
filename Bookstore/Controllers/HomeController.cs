@@ -13,9 +13,17 @@ namespace Bookstore.Controllers
             return View();
         }
 
-        public IActionResult catalog()
+        public IActionResult Catalog()
         {
-            return View();
+            if (HttpContext.Session.GetString("UserSession") == null)
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
 

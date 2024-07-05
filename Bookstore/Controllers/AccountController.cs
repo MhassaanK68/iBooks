@@ -72,8 +72,9 @@ namespace Bookstore.Controllers
                 if (TempUser != null)
                 {
                     HttpContext.Session.SetString("UserSession", TempUser.Username);
+                    ViewData["Session"] = HttpContext.Session.Id.ToString();
                     TempData["IsLoginFail"] = null;
-                    return RedirectToAction("MyAccount");
+                    return RedirectToAction("Catalog", "Home");
                 }
                 else
                 {
@@ -88,14 +89,12 @@ namespace Bookstore.Controllers
         public IActionResult MyAccount()
         {
             if (HttpContext.Session.GetString("UserSession") != null)
-            {
-                ViewBag.ActiveSession = HttpContext.Session.GetString("UserSession").ToString();
+            {               
                 return View();
             }
             else
             {
-                ViewBag.ActiveSession = "Expired";
-                return RedirectToAction("Login");
+                return RedirectToAction("SignIn");
             }
         }
     }
