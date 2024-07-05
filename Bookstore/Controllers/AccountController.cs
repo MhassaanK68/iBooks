@@ -93,17 +93,28 @@ namespace Bookstore.Controllers
             return View();
         }
         
-        
-        public IActionResult MyAccount()
-        {
-            if (HttpContext.Session.GetString("UserSession") != null)
-            {               
-                return View();
-            }
-            else
+        public IActionResult LogOut() 
+        { 
+            if (HttpContext.Session.GetString("Usr") == null)
             {
                 return RedirectToAction("SignIn");
             }
+            else
+            {
+                HttpContext.Session.Remove("Usr");
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+
+        public IActionResult MyAccount()
+        {
+            if (HttpContext.Session.GetString("Usr") != null)
+            {
+                return View();
+            }
+            return RedirectToAction("SignIn");
+
         }
     }
 }

@@ -1,7 +1,11 @@
 ﻿@model Bookstore.Models.Cls_SignInFields;
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor SessionAccessor
+
 @{
     Layout = null; // This line specifies no layout
-    
+
+    var SessionUsr = SessionAccessor.HttpContext.Session.GetString("Usr");
 }
 <head>
     <meta charset="utf-8" />
@@ -68,7 +72,7 @@
                     </div>
 
                 }
-                else if (null == null)
+                else if (SessionUsr == null)
                 {             
                         <div class="text-center" id="FormFailure">
                             <strong>You Are Not Logged In</strong>
@@ -80,7 +84,7 @@
 
 
 
-        <h1 class="h3 mt-3 mb-3 fw-normal headings">@ViewData["Session"]</h1>
+        <h1 class="h3 mt-3 mb-3 fw-normal headings">SignIn</h1>
         <div class="form-floating">
             <input class="form-control" asp-for="Username" placeholder="name@example.com">
             <label asp-for="Username">Username</label>

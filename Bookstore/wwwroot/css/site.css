@@ -6,6 +6,44 @@
     max-height: 100px;
 }
 
+.icons {
+    font-size: 32px;
+
+}
+
+.sma-text {
+    font-size: 24px;
+    font-family: Roboto;
+    color: black;
+
+}
+
+.dropdown-icons{
+    font-size: 22px;
+    color: black;
+
+}
+
+.dropdown-menu{
+    vertical-align: middle;
+}
+.dropdown-menu-right-adjust {
+    transform: translateX(-20%);
+}
+
+    .dropdown-menu-right-adjust.show {
+        right: 0;
+        left: auto;
+    }
+
+/* Media query for responsive adjustments */
+@media (max-width: 768px) {
+    .dropdown .dropdown-menu {
+        left: auto;
+        right: 0;
+        max-width: 200px;
+    }
+}
 
 
 /* Shared */
@@ -15,13 +53,11 @@
 }
 
 .headings {
-
     font-weight: 600;
     font-family: Inter;
 }
 
 .dSection {
-
     height: 400px;
 }
 
@@ -40,13 +76,12 @@
     font-size: calc(1rem + 1.1vw);
 }
 
-.XLSection{
+.XLSection {
     height: 100%;
     border: solid;
 }
 
-#FormFailure{
-    
+#FormFailure {
 }
 
 
@@ -56,20 +91,20 @@
     overflow-x: hidden;
 }
 
-/* Customize scrollbar */
-.scroll-container::-webkit-scrollbar {
-    width: 10px;
-}
+    /* Customize scrollbar */
+    .scroll-container::-webkit-scrollbar {
+        width: 10px;
+    }
 
-.scroll-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
+    .scroll-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
 
-.scroll-container::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 5px;
-}
+    .scroll-container::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 5px;
+    }
 
-.scroll-container::-webkit-scrollbar-thumb:hover {
-    background: none;
-}
+        .scroll-container::-webkit-scrollbar-thumb:hover {
+            background: none;
+        }
