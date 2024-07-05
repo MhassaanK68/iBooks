@@ -36,6 +36,7 @@ namespace Bookstore.Controllers
                 UsrToAdd.Username = NewUser.Username;
                 UsrToAdd.Password = NewUser.Password;
                 UsrToAdd.Email = NewUser.Email;
+                UsrToAdd.role = "User";
 
                 // Adding User Model Instance
                 UsersDB.Users.Add(UsrToAdd);
@@ -74,6 +75,12 @@ namespace Bookstore.Controllers
                     HttpContext.Session.SetString("UserSession", TempUser.Username);
                     ViewData["Session"] = HttpContext.Session.Id.ToString();
                     TempData["IsLoginFail"] = null;
+                    // If user is an admin redirect to admin panel
+                    if (TempUser.role == "Admin")
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    // Otherwise redirect to home
                     return RedirectToAction("Catalog", "Home");
                 }
                 else

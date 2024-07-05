@@ -10,5 +10,6 @@ namespace Bookstore.Models
         }
 
         public DbSet<UsersModel> Users { get; set; }
+
     }
 }

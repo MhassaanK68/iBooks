@@ -16,6 +16,9 @@ namespace Bookstore.Models
         [Column]
         public string Password { get; set; }
 
+        [Column]
+        public string role { get; set; }
+
 
     }
 

@@ -1,0 +1,11 @@
+﻿@{
+    if (ViewData["IsAdmin"] == "False")
+    {
+        <h1 class="display-3 text-center "> YOU ARE NOT AN ADMIN</h1>
+        <h1 class="display-3 text-center"> YOU DONT HAVE ACCESS TO THIS PAGE</h1>
+    }
+    else
+    {        
+        <h1>You are an admin user</h1>
+    }
+}
