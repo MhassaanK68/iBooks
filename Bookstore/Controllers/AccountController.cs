@@ -74,20 +74,15 @@ namespace Bookstore.Controllers
                 {
                     HttpContext.Session.SetString("Usr", TempUser.Username);
 
-                    SessionData UserSession = new SessionData();
-
-                    UserSession.Session_ID = HttpContext.Session.Id.ToString();
-                    UserSession.Session_Name = HttpContext.Session.GetString("Usr");
-
                     TempData["IsLoginFail"] = null;
                     // If user is an admin redirect to admin panel
                     if (TempUser.role == "Admin")
                     {
                         return RedirectToAction("Index", "Admin");
                     }
-                    return View();
-                    // Otherwise redirect to home
-                    //return RedirectToAction("Catalog", "Home");
+
+                    //Otherwise redirect to home
+                    return RedirectToAction("Catalog", "Home");
                 }
                 else
                 {

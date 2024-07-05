@@ -16,7 +16,7 @@ namespace Bookstore.Controllers
 
         public IActionResult Catalog()
         {
-            if (HttpContext.Session.GetString("UserSession") == null)
+            if (HttpContext.Session.GetString("Usr") == null)
             {
                 return RedirectToAction("SignIn", "Account");
             }
