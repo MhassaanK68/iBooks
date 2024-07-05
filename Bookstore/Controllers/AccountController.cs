@@ -72,8 +72,13 @@ namespace Bookstore.Controllers
                 var TempUser = UsersDB.Users.Where(DB_Item => DB_Item.Username == IsUser.Username && DB_Item.Password == IsUser.Password).FirstOrDefault();
                 if (TempUser != null)
                 {
-                    HttpContext.Session.SetString("UserSession", TempUser.Username);
-                    ViewData["Session"] = HttpContext.Session.GetString("UserSession").ToString();
+                    HttpContext.Session.SetString("Usr", TempUser.Username);
+
+                    SessionData UserSession = new SessionData();
+
+                    UserSession.Session_ID = HttpContext.Session.Id.ToString();
+                    UserSession.Session_Name = HttpContext.Session.GetString("Usr");
+
                     TempData["IsLoginFail"] = null;
                     // If user is an admin redirect to admin panel
                     if (TempUser.role == "Admin")

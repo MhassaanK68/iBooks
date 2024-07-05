@@ -9,7 +9,8 @@ namespace Bookstore.Controllers
     {
 
         public IActionResult Index()
-        {         
+        {
+            CookieOptions UserCookie = new CookieOptions();
             return View();
         }
 
