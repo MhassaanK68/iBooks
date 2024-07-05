@@ -47,10 +47,23 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">SignUp</a>
                         </li>
                     </ul> *@
-                </div> 
-                <div class="d-none d-sm-block">
-                    <a href="/Account/SignIn"><button class="btn btn-dark pe-4 ps-4 nav-item me-5">Sign-In</button></a>
                 </div>
+
+                <div class="d-none d-sm-block">
+                    @if (ViewData["Session"] == null)
+                    {
+                        <a href="/Account/SignIn"><button class="btn btn-dark pe-4 ps-4 nav-item me-5">Sign-In</button></a>
+                    }
+                    else
+                    {
+                        <a><i class="material-icons">account_circle</i></a>
+                    }
+                </div>
+
+                    
+                        
+                    
+                     
                 
             </div>
         </nav>
