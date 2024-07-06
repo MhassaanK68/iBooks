@@ -16,9 +16,9 @@ namespace Bookstore.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("UserSession") != null)
+            if (HttpContext.Session.GetString("Usr") != null)
             {
-                string ThisUser_Username = HttpContext.Session.GetString("UserSession").ToString();
+                string ThisUser_Username = HttpContext.Session.GetString("Usr").ToString();
                 var UserDetails = UsersDB.Users.Where(x => x.Username == ThisUser_Username).FirstOrDefault();
                 if (UserDetails.role == "Admin")
                 {
