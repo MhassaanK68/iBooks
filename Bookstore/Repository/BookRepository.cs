@@ -24,14 +24,14 @@ namespace Bookstore.Repository
         {
             var Data =  new List<Book>
             {
-                new Book {BookName = "Harry Potter Series", Author = "JK Rowling", Price = 2400, ImageSource="/Assets/Images/Book-Thumnails/HarryPotter.jpg", BookID=0},
-                new Book {BookName = "Rich Dad Poor Dad", Author = "Robert Kiyosaki", Price = 1200, ImageSource="https://placehold.co/300x150", BookID = 1},
-                new Book {BookName = "Diary Of A Wimpy Kid", Author = "Jeff Kinney", Price = 600, ImageSource = "https://placehold.co/300x150", BookID = 2},
-                new Book {BookName = "To Kill a Mockingbird", Author = "Harper Lee", Price = 1800, ImageSource = "https://placehold.co/300x150", BookID = 3},
-                new Book {BookName = "The Great Gatsby", Author = "F. Scott Fitzgerald", Price = 2000, ImageSource = "https://placehold.co/300x150", BookID = 4},
-                new Book {BookName = "1984", Author = "George Orwell", Price = 150 , ImageSource =  "https://placehold.co/300x150", BookID = 5},
-                new Book {BookName = "The Catcher in the Rye", Author = "J.D. Salinger", Price = 1700, ImageSource = "https://placehold.co/300x150", BookID = 6},
-                new Book {BookName = "Pride and Prejudice", Author = "Jane Austen", Price = 1600, ImageSource = "https://placehold.co/300x150", BookID = 7}
+                new Book {BookName = "Harry Potter Series", Author = "JK Rowling", ImageSource="/Assets/Images/Book-Thumnails/HarryPotter.jpg", BookID=0},
+                new Book {BookName = "Rich Dad Poor Dad", Author = "Robert Kiyosaki", ImageSource="https://placehold.co/300x150", BookID = 1},
+                new Book {BookName = "Diary Of A Wimpy Kid", Author = "Jeff Kinney", ImageSource = "https://placehold.co/300x150", BookID = 2},
+                new Book {BookName = "To Kill a Mockingbird", Author = "Harper Lee", ImageSource = "https://placehold.co/300x150", BookID = 3},
+                new Book {BookName = "The Great Gatsby", Author = "F. Scott Fitzgerald", ImageSource = "https://placehold.co/300x150", BookID = 4},
+                new Book {BookName = "1984", Author = "George Orwell" , ImageSource =  "https://placehold.co/300x150", BookID = 5},
+                new Book {BookName = "The Catcher in the Rye", Author = "J.D. Salinger", ImageSource = "https://placehold.co/300x150", BookID = 6},
+                new Book {BookName = "Pride and Prejudice", Author = "Jane Austen", ImageSource = "https://placehold.co/300x150", BookID = 7}
             };
             return Data;
     
