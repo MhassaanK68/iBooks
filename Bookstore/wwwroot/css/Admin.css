@@ -18,6 +18,12 @@ body {
     transition: transform 0.3s ease; 
 }
 
+.Action-Log-Section {
+    height: 282px;
+    overflow-x: scroll;
+}
+
+
 .active-link {
     color: blue !important;
 }
