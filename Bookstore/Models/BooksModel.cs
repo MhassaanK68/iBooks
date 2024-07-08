@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bookstore.Models
 {
-    public class Book 
+    public class BooksModel
     {
         [Key]
         public int BookID { get; set; }
@@ -15,8 +15,20 @@ namespace Bookstore.Models
         
         public string ImageSource { get; set; }
 
-        public string Category { get; set; }
+        public Categories Category { get; set; }
 
+
+    }
+
+    public enum Categories 
+    {
+        Sci_Fi,
+        Adventure,
+        Romantic,
+        Horror,
+        Humor,
+        Fantasy,
+        Thrillers
 
     }
 

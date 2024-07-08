@@ -1,7 +1,7 @@
 ﻿using Bookstore.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Bookstore.Repository;
+
 
 namespace Bookstore.Controllers
 {
@@ -10,7 +10,6 @@ namespace Bookstore.Controllers
 
         public IActionResult Index()
         {
-            CookieOptions UserCookie = new CookieOptions();
             return View();
         }
 

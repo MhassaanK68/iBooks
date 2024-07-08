@@ -7,10 +7,10 @@ namespace Bookstore.Controllers
     public class AccountController : Controller
     {
         // Importing UsersDBContext as UsersDB
-        readonly public UsersDbContexxt UsersDB;
+        readonly public DBContext UsersDB;
 
         // Initializes UsersDB to an Instance
-        public AccountController(UsersDbContexxt UsersDBOject)
+        public AccountController(DBContext UsersDBOject)
         {
             UsersDB = UsersDBOject;     
         }
@@ -78,7 +78,7 @@ namespace Bookstore.Controllers
                     // If user is an admin redirect to admin panel
                     if (TempUser.role == "Admin")
                     {
-                        return RedirectToAction("Index", "Admin");
+                        return RedirectToAction("Dashboard", "Admin");
                     }
 
                     //Otherwise redirect to home
@@ -93,28 +93,31 @@ namespace Bookstore.Controllers
             return View();
         }
         
-        public IActionResult LogOut() 
-        { 
-            if (HttpContext.Session.GetString("Usr") == null)
+        
+        public IActionResult MyAccount()
+        {
+            if (HttpContext.Session.GetString("UserSession") != null)
+            {               
+                return View();
+            }
+            else
             {
                 return RedirectToAction("SignIn");
             }
-            else
+        }
+
+        public IActionResult Logout()
+        {
+            if (HttpContext.Session.GetString("Usr") != null)
             {
                 HttpContext.Session.Remove("Usr");
                 return RedirectToAction("Index", "Home");
             }
-        }
-
-
-        public IActionResult MyAccount()
-        {
-            if (HttpContext.Session.GetString("Usr") != null)
+            else
             {
-                return View();
+                return RedirectToAction("SignIn");
             }
-            return RedirectToAction("SignIn");
-
         }
+
     }
 }

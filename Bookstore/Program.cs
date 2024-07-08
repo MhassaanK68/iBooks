@@ -9,7 +9,8 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 ServiceProvider Provider = builder.Services.BuildServiceProvider();
 var config = Provider.GetRequiredService<IConfiguration>();
-builder.Services.AddDbContext<UsersDbContexxt>(item => item.UseSqlServer(config.GetConnectionString("DBCS")));
+builder.Services.AddDbContext<DBContext>(item => item.UseSqlServer(config.GetConnectionString("DBCS")));
+
 
 builder.Services.AddSession();
 

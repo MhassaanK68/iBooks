@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bookstore.Migrations
 {
-    [DbContext(typeof(UsersDbContexxt))]
+    [DbContext(typeof(DBContext))]
     [Migration("20240702151819_CreatingDB")]
     partial class CreatingDB
     {
