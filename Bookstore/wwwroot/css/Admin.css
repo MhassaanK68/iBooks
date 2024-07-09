@@ -46,6 +46,11 @@ body {
     background-color: white;
 }
 
+.card-header {
+    font-weight: 400;
+}
+
+
 .a-btn {
     font-family: Poppins;
     font-weight: 200;
