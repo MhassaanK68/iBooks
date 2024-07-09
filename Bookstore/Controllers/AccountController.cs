@@ -36,7 +36,7 @@ namespace Bookstore.Controllers
                 UsrToAdd.Username = NewUser.Username;
                 UsrToAdd.Password = NewUser.Password;
                 UsrToAdd.Email = NewUser.Email;
-                UsrToAdd.role = "User";
+                UsrToAdd.role = RoleType.User;
 
                 // Adding User Model Instance
                 UsersDB.Users.Add(UsrToAdd);
@@ -76,7 +76,7 @@ namespace Bookstore.Controllers
 
                     TempData["IsLoginFail"] = null;
                     // If user is an admin redirect to admin panel
-                    if (TempUser.role == "Admin")
+                    if (TempUser.role == RoleType.Admin)
                     {
                         return RedirectToAction("Dashboard", "Admin");
                     }

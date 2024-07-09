@@ -1,6 +1,7 @@
 ﻿using Bookstore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Bookstore.Controllers
 {
@@ -39,13 +40,23 @@ namespace Bookstore.Controllers
                 return RedirectToAction("NotAdmin");
             }
 
-            var count = UsersDB.Users.Count(me => me.role == "User");
-            ViewData["RegisteredUsers"] = count;
-
-            List<UsersModel> AllUsers = UsersDB.Users.ToList();
+            ViewModel UsersList = new ViewModel();
+            UsersList.RegisteredUsers = UsersDB.Users.ToList();
 
 
-            return View(AllUsers);
+
+            return View();
+        }
+
+
+        public IActionResult Books()
+        {
+            return View();
+        }
+
+        public IActionResult Team()
+        {
+            return View();
         }
 
         public String NotAdmin()
@@ -58,7 +69,9 @@ namespace Bookstore.Controllers
         {
             string ThisUser_Username = HttpContext.Session.GetString("Usr").ToString();
             var UserDetails = UsersDB.Users.Where(x => x.Username == ThisUser_Username).FirstOrDefault();
-            if (UserDetails.role == "Admin")
+            RoleType Admin = RoleType.Admin;
+
+            if (UserDetails.role == Admin)
             {
                 return true;
             }

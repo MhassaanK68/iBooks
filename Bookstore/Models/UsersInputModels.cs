@@ -34,4 +34,10 @@ namespace Bookstore.Models
         [MaxLength(16)]
         public string Password2 { get; set; }
     }
+
+
+    public class ViewModel
+    {
+        public List<UsersModel> RegisteredUsers { get; set; }
+    }
 }

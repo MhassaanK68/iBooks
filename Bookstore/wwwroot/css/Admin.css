@@ -1,6 +1,7 @@
 ﻿/* Adjust body padding for fixed navbar */
 body {
     padding-top: 4.5rem;
+    background-color: #F2F2F2 !important;
 }
 
 /* Sidebar styling */
@@ -19,8 +20,68 @@ body {
 }
 
 .Action-Log-Section {
-    height: 282px;
+    height: 359px;
     overflow-x: scroll;
+}
+
+
+.activity-item{
+    border-radius: 15px !important;
+    margin-top: 2px;
+}
+
+.Heading {
+    font-family: Poppins;
+    font-weight: 500;
+
+}
+
+.restitle{
+    font-size: calc(0.3vw + 1.7rem) !important;
+}
+.user-actions {
+    height: 320px;
+}
+.card-header{
+    background-color: white;
+}
+
+.a-btn {
+    font-family: Poppins;
+    font-weight: 200;
+    color: #3b444b;
+    font-size: calc(0.7vw + 0.7rem);
+    font-weight: 700;
+}
+
+
+.sm-text {
+    font-family: Poppins;
+    font-weight: 200;
+    color: #3b444b;
+}
+
+.activity {
+    height: 468px;
+    overflow-y: hidden;
+}
+
+.res-para {
+    font-size: calc(0.35vw + 0.7rem) !important;
+}
+
+
+.round-card {
+    border-radius: 15px!important;
+}
+
+.alert-beige {
+    color: #141619;
+    background-color: #F2F2F2;
+}
+
+.alert-beige p{
+    color: #456086;
 }
 
 
@@ -63,3 +124,4 @@ body {
         margin-left: 0; 
     }
 }
+

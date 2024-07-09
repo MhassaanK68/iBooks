@@ -17,9 +17,15 @@ namespace Bookstore.Models
         public string Password { get; set; }
 
         [Column]
-        public string role { get; set; }
+        public RoleType role { get; set; }
 
 
+    }
+
+    public enum RoleType
+    {
+        Admin,
+        User,
     }
 
 }
