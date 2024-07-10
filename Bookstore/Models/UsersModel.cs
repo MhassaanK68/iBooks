@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Composition.Convention;
@@ -19,13 +20,12 @@ namespace Bookstore.Models
         [Column]
         public RoleType role { get; set; }
 
-
     }
 
-    public enum RoleType
-    {
-        Admin,
-        User,
-    }
+        public enum RoleType
+        {
+            User,
+            Admin
+        }
 
 }

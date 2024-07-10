@@ -7,10 +7,14 @@
     string username = SessionAccessor.HttpContext.Session.GetString("Usr");
 }
 
-<div class="container-fluid mt-4">
-    <!-- Page content goes here -->
-    <h1 class="mb-0 Heading">Hi! @username</h1>
-    <p class="sm-text lead">Welcome to the admin panel.</p>
+<div class="container-fluid  mt-4">
+
+    <div class="ms-4">
+        <!-- Page content goes here -->
+        <h2 class="mb-0 Heading">Hi! @username</h2>
+        <p class="sm-text lead">Welcome to the admin panel.</p>
+    </div>
+
 
     <!-- First Section -->
     <div class="row">
@@ -20,14 +24,14 @@
             <div class="card round-card p-3 w-100 mb-3 custom-card-height">
                 <div class="w-100">
                     <div class="row">
-                        <h1 class=" mb-0 px-3 pt-2 pb-1">Quick Actions</h1>
+                        <h1 class="card-title mb-0 px-3 pt-2 pb-1">Quick Actions</h1>
 
                         <div class="col-sm-6 mt-3">
                             <div class="card round-card responsive-cards">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title restitle">Add Books</h5>
+                                            <h5 class="card-title restitle card-title-w">Add Books</h5>
                                             <p class="res-para sm-text">Publish New Books</p>
                                         </div>
                                         <div class="col-auto">
@@ -49,7 +53,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title restitle">Create Admins</h5>
+                                            <h5 class="card-title restitle card-title-w">Create Admins</h5>
                                             <p class="res-para sm-text">Create Administrator</p>
                                         </div>
                                         <div class="col-auto">
@@ -72,8 +76,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title restitle">Search User</h5>
-                                            <p class="res-para sm-text">Fetch Details By Username</p>
+                                            <h5 class="card-title restitle card-title-w">Search User</h5>
+                                            <p class="res-para sm-text">Details By Username</p>
                                         </div>
                                         <div class="col-auto">
                                             <div class="stat text-primary">
@@ -92,8 +96,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title restitle">Watch Catalog</h5>
-                                            <p class="res-para sm-text">List Of Current Books Available</p>
+                                            <h5 class="card-title restitle card-title-w">Watch Catalog</h5>
+                                            <p class="res-para sm-text">List Of Books Available</p>
                                         </div>
                                         <div class="col-auto">
                                             <div class="stat text-primary">
@@ -120,7 +124,7 @@
                 <div class="card-body">
                     <div class="row p-3">
                         <div class="col-6 h4">Activity</div>
-                        <div class="col-6 text-end"><a><h5 class="text-primary">View All</h5></a></div>
+                        <div class="col-6 text-end"><a><h5 class="text-primary clicker">View All</h5></a></div>
                     </div>
                     <!-- NOTIFICATION -->
                     <div class="alert alert-beige activity-item" role="alert">

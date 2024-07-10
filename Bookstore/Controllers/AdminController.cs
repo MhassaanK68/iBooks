@@ -1,5 +1,6 @@
 ﻿using Bookstore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -7,15 +8,17 @@ namespace Bookstore.Controllers
 {
     public class AdminController : Controller
     {
-        // Importing UsersDBContext as UsersDB
-        readonly public DBContext UsersDB;
 
-        // Initializes UsersDB to an Instance
-        public AdminController(DBContext UsersDBObject)
+        bool? Exist;
+
+        // Importing dbContext as db
+        readonly public DBContext db;
+
+        // Initializes db to an Instance
+        public AdminController(DBContext dbObject)
         {
-            UsersDB = UsersDBObject;
+            db = dbObject;
         }
-
         public IActionResult Dashboard()
         {
             if (!IsLogin())
@@ -40,13 +43,94 @@ namespace Bookstore.Controllers
                 return RedirectToAction("NotAdmin");
             }
 
-            ViewModel UsersList = new ViewModel();
-            UsersList.RegisteredUsers = UsersDB.Users.ToList();
+            UsersViewModel model = new UsersViewModel()
+            {
+                ListOfRoles = new List<SelectListItem>
+                {
+                    new SelectListItem {Value = "0", Text = "User"},
+                    new SelectListItem {Value = "1", Text = "Admin"}
+                }
+                  
+            };
+
+            if ((bool?)TempData["Exist"] == false)
+            {
+                model.Exist = false;
+            }
+            else if ((bool?)TempData["Exist"] == true)
+            {
+                model.Exist = true;
+            }
 
 
 
-            return View();
+            return View(model);
         }
+
+        [HttpPost]
+        public IActionResult Users(UsersViewModel NewEntry)
+        {
+            //bool showModal = false;
+
+            //// Check session to determine if modal should be shown
+            //if (HttpContext.Session.GetString("ShowModal") == "true")
+            //{
+            //    showModal = true;
+            //}
+
+
+            if (ModelState.IsValid)
+            {
+                if (db.Users.Any(Entry => Entry.Username == NewEntry.Username))
+                {
+                    var ThisUser = db.Users.First(Users => Users.Username == NewEntry.Username);
+                    ThisUser.Password = NewEntry.Password;
+                    ThisUser.Email = NewEntry.Email;
+                    ThisUser.role = NewEntry.role;
+                    db.SaveChanges();
+                }
+                else {
+                    UsersModel TempUser = new UsersModel()
+                    {
+                        Username = NewEntry.Username,
+                        Email = NewEntry.Email,
+                        Password = NewEntry.Password,
+                        role = NewEntry.role
+                    };
+
+                    db.Users.Add(TempUser);
+                    db.SaveChanges();
+                    ModelState.Clear();
+
+
+                    return RedirectToAction("Dashboard");
+                }
+            }
+
+
+
+
+            return View(NewEntry);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteForm(UsersViewModel NewEntry)
+        {
+            if (db.Users.Any(x => x.Username == NewEntry.Username))
+            {
+                UsersModel UsrToRemove = db.Users.First(x => x.Username == NewEntry.Username);
+                db.Users.Remove(UsrToRemove);
+                db.SaveChanges();
+                TempData["Exist"] = true;
+            }
+            else 
+            {
+                TempData["Exist"] = false;
+            }
+
+            return RedirectToAction("Users");
+        }
+
 
 
         public IActionResult Books()
@@ -68,10 +152,10 @@ namespace Bookstore.Controllers
         private bool IsAdmin()
         {
             string ThisUser_Username = HttpContext.Session.GetString("Usr").ToString();
-            var UserDetails = UsersDB.Users.Where(x => x.Username == ThisUser_Username).FirstOrDefault();
+            var UserDetails = db.Users.Where(x => x.Username == ThisUser_Username).FirstOrDefault();
             RoleType Admin = RoleType.Admin;
 
-            if (UserDetails.role == Admin)
+            if (UserDetails.role == Admin) // ERROR HANDLING TO BE DONE
             {
                 return true;
             }

@@ -46,7 +46,7 @@ body {
     background-color: white;
 }
 
-.card-header {
+.card-title-w {
     font-weight: 400;
 }
 
@@ -67,9 +67,13 @@ body {
 }
 
 .activity {
-    height: 468px;
+    height: 495px;
     overflow-y: hidden;
 }
+.clicker {
+    cursor: pointer;
+}
+
 
 .res-para {
     font-size: calc(0.35vw + 0.7rem) !important;

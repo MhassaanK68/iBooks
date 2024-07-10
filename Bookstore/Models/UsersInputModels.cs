@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bookstore.Models
@@ -36,8 +37,24 @@ namespace Bookstore.Models
     }
 
 
-    public class ViewModel
+    public class UsersViewModel
     {
-        public List<UsersModel> RegisteredUsers { get; set; }
+        [Required]
+        public string Email { get; set; }
+
+        [Required]
+        public string Username { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+
+        [Required]
+        public RoleType role { get; set; }
+
+        public List<SelectListItem>? ListOfRoles { get; set; }
+
+        public bool? Exist { get; set; }
+
     }
+
 }
