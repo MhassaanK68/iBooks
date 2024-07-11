@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
   
+
+    <style>
+
+
+
+    </style>
+
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/Admin.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -100,7 +108,7 @@
 <body>
 
     @* Navigation Bar *@
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
+    <nav class="navbar navbar-expand-xxl navbar-light bg-light shadow-sm fixed-top">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse"
                     aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle sidebar">
@@ -170,7 +178,8 @@
 
     <!-- Main content -->
     <div class="main-content">
-        @RenderBody()
+
+        <div class="px-4"> @RenderBody()</div>
     </div>
 
     <!-- Bootstrap JS and dependencies -->

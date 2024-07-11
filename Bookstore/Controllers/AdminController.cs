@@ -19,6 +19,12 @@ namespace Bookstore.Controllers
         {
             db = dbObject;
         }
+
+
+        // DASHBOARD ACTION METHOD
+
+        [Route("/admin")]
+        [Route("/admin/dashboard")]
         public IActionResult Dashboard()
         {
             if (!IsLogin())
@@ -29,8 +35,40 @@ namespace Bookstore.Controllers
                 return RedirectToAction("NotAdmin");
             }
 
+            // Importing All Activities From Database
+            var ActivityList = db.AdminActivity.ToList();
+
+            // Creating DropDown List
+            UsersViewModel model = new UsersViewModel()
+            {
+                ListOfRoles = new List<SelectListItem>
+                {
+                    new SelectListItem {Value = "0", Text = "User"},
+                    new SelectListItem {Value = "1", Text = "Admin"}
+                }
+
+            };
+
+            // Returning User Delete Response IF CALL IS SENT FROM DASHBOARD
+            if ((bool?)TempData["Exist"] == false)
+            {
+                model.Exist = false;
+            }
+            else if ((bool?)TempData["Exist"] == true)
+            {
+                model.Exist = true;
+            }
+
+
+            ViewBag.dropdown = model;
+            return View(ActivityList);
+        }
+
+        public IActionResult BooksManagement()
+        {
             return View();
         }
+
 
         public IActionResult Users()
         {
@@ -53,6 +91,7 @@ namespace Bookstore.Controllers
                   
             };
 
+            // IF CALL IS SENT FROM ADMINISTRATION
             if ((bool?)TempData["Exist"] == false)
             {
                 model.Exist = false;
@@ -62,49 +101,45 @@ namespace Bookstore.Controllers
                 model.Exist = true;
             }
 
+            
+
+
 
 
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Users(UsersViewModel NewEntry)
+        public IActionResult CreateUser(UsersViewModel NewEntry)
         {
-            //bool showModal = false;
-
-            //// Check session to determine if modal should be shown
-            //if (HttpContext.Session.GetString("ShowModal") == "true")
-            //{
-            //    showModal = true;
-            //}
-
-
             if (ModelState.IsValid)
             {
-                if (db.Users.Any(Entry => Entry.Username == NewEntry.Username))
+
+                UsersModel TempUser = new UsersModel()
                 {
-                    var ThisUser = db.Users.First(Users => Users.Username == NewEntry.Username);
-                    ThisUser.Password = NewEntry.Password;
-                    ThisUser.Email = NewEntry.Email;
-                    ThisUser.role = NewEntry.role;
-                    db.SaveChanges();
-                }
-                else {
-                    UsersModel TempUser = new UsersModel()
-                    {
-                        Username = NewEntry.Username,
-                        Email = NewEntry.Email,
-                        Password = NewEntry.Password,
-                        role = NewEntry.role
-                    };
+                    Username = NewEntry.Username,
+                    Email = NewEntry.Email,
+                    Password = NewEntry.Password,
+                    role = NewEntry.role
 
-                    db.Users.Add(TempUser);
-                    db.SaveChanges();
-                    ModelState.Clear();
+                };
 
+                AdminActivityModel NewActivity = new AdminActivityModel()
+                {
+                    AdminName = HttpContext.Session.GetString("Usr"),
+                    Activity = AdminActivityType.CreateUser,
+                    MetaData = NewEntry.Username,
+                    ActivityMessage = "Created A New " + NewEntry.role.ToString() + " '" + NewEntry.Username.ToString() + "'",
+                    Time = DateTime.Now
 
-                    return RedirectToAction("Dashboard");
-                }
+                };
+
+                db.Users.Add(TempUser);
+                db.AdminActivity.Add(NewActivity);
+                db.SaveChanges();
+                ModelState.Clear();
+
+                return RedirectToAction("Dashboard");
             }
 
 
@@ -119,9 +154,23 @@ namespace Bookstore.Controllers
             if (db.Users.Any(x => x.Username == NewEntry.Username))
             {
                 UsersModel UsrToRemove = db.Users.First(x => x.Username == NewEntry.Username);
+
+                AdminActivityModel NewActivity = new AdminActivityModel()
+                {
+                    AdminName = HttpContext.Session.GetString("Usr"),
+                    Activity = AdminActivityType.DeleteUser,
+                    MetaData = UsrToRemove.Username,
+                    ActivityMessage = "Deleted The " + UsrToRemove.role.ToString() + " '" + UsrToRemove.Username.ToString() + "'",
+                    Time = DateTime.Now
+                };
+
                 db.Users.Remove(UsrToRemove);
+                db.AdminActivity.Add(NewActivity) ;
                 db.SaveChanges();
-                TempData["Exist"] = true;
+                if (NewEntry.Username != NewActivity.AdminName)
+                {
+                    TempData["Exist"] = true;
+                }
             }
             else 
             {
@@ -131,12 +180,8 @@ namespace Bookstore.Controllers
             return RedirectToAction("Users");
         }
 
-
-
-        public IActionResult Books()
-        {
-            return View();
-        }
+    
+       
 
         public IActionResult Team()
         {
@@ -146,24 +191,6 @@ namespace Bookstore.Controllers
         public String NotAdmin()
         {
             return "You Dont Have Access To This Page";
-        }
-
-
-        private bool IsAdmin()
-        {
-            string ThisUser_Username = HttpContext.Session.GetString("Usr").ToString();
-            var UserDetails = db.Users.Where(x => x.Username == ThisUser_Username).FirstOrDefault();
-            RoleType Admin = RoleType.Admin;
-
-            if (UserDetails.role == Admin) // ERROR HANDLING TO BE DONE
-            {
-                return true;
-            }
-            else
-            {
-                ViewData["IsAdmin"] = "False";
-                return false;
-            }
         }
 
         private bool IsLogin()
@@ -177,5 +204,26 @@ namespace Bookstore.Controllers
                 return false;
             }
         }
+
+        private bool IsAdmin()
+        {
+            if (IsLogin())
+            {
+                string ThisUser_Username = HttpContext.Session.GetString("Usr").ToString();
+                var UserDetails = db.Users.Where(x => x.Username == ThisUser_Username).FirstOrDefault();
+                RoleType Admin = RoleType.Admin;
+                if (UserDetails != null && UserDetails.role == Admin) // ERROR HANDLING TO BE DONE
+                {
+                    return true;
+                }
+            }
+
+            // If NotLogIn + NotAdmin
+
+            ViewData["IsAdmin"] = "False";
+            return false;
+            
+        }
+
     }   
 }

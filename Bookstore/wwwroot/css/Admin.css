@@ -114,7 +114,8 @@ body {
 }
 
 /* Media query for smaller screens */
-@media (max-width: 991.98px) {
+@media (max-width: 1400px) {
+
     .sidebar {
         transform: translateX(-280px);
     }
@@ -125,12 +126,13 @@ body {
 
     /* Show sidebar when .show class is added */
     .sidebar.show {
-        transform: translateX(0); 
+        transform: translateX(0);
     }
 
     /* Adjust main content margin when sidebar is shown */
     .main-content.show {
-        margin-left: 0; 
+        margin-left: 0;
     }
 }
+
 

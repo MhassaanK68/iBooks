@@ -1,6 +1,10 @@
 ﻿@{
+    
+
     Layout = "_AdminLayout";
 
+    @model List<AdminActivityModel>
+    @using System;
     @using Microsoft.AspNetCore.Http;
     @inject Microsoft.AspNetCore.Http.IHttpContextAccessor SessionAccessor
 
@@ -9,18 +13,20 @@
 
 <div class="container-fluid  mt-4">
 
-    <div class="ms-4">
-        <!-- Page content goes here -->
-        <h2 class="mb-0 Heading">Hi! @username</h2>
-        <p class="sm-text lead">Welcome to the admin panel.</p>
+    <div class="row">
+        <div class="ms-4 col-6">
+            <h1 class="mb-0 Heading">Hi! @username</h1>
+            <p class="sm-text lead">Welcome to the admin panel.</p>
+        </div>
     </div>
 
+    <partial name="_AdminActionModals" model="ViewBag.dropdown" />
 
     <!-- First Section -->
     <div class="row">
 
         <!-- Quick Actions -->
-        <div class="col-xl-8 col-xxl-8">
+        <div class="col-lg-8">
             <div class="card round-card p-3 w-100 mb-3 custom-card-height">
                 <div class="w-100">
                     <div class="row">
@@ -53,8 +59,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title restitle card-title-w">Create Admins</h5>
-                                            <p class="res-para sm-text">Create Administrator</p>
+                                            <h5 class="card-title restitle card-title-w">Create Accounts</h5>
+                                            <p class="res-para sm-text">Create User/Admin</p>
                                         </div>
                                         <div class="col-auto">
                                             <div class="stat text-primary">
@@ -65,7 +71,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-0">
-                                        <button class="btn btn-lg btn-primary my-2">Click Here!</button>
+                                        <button class="btn btn-lg btn-primary my-2" data-bs-toggle="modal" data-bs-target="#CreateUser">Click Here!</button>
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +94,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-0">
-                                        <button class="btn btn-lg btn-primary my-2">Click Here!</button>
+                                        <button class="btn btn-lg btn-primary my-2" data-bs-toggle="modal" data-bs-target="#SearchUser">Click Here!</button>
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +125,7 @@
             </div>
         </div>
 
-        <div class="col-xl-4 col-xxl-4">
+        <div class="col-lg-4">
             <div class="card round-card activity custom-card-height">
                 <div class="card-body">
                     <div class="row p-3">
@@ -127,21 +133,23 @@
                         <div class="col-6 text-end"><a><h5 class="text-primary clicker">View All</h5></a></div>
                     </div>
                     <!-- NOTIFICATION -->
-                    <div class="alert alert-beige activity-item" role="alert">
-                        <h6>Asjid Joined The Team</h6>
-                        <p style="font-size: 0.7rem;" class="sm-text date mb-0"> 9 July 2024 | 3:16 PM</p>
+                    <div class="d-flex flex-column-reverse">
+                    @foreach (var activity in Model)
+                    {
+                        <div class="alert alert-beige activity-item" role="alert">
+                            <h6>@activity.AdminName @activity.ActivityMessage</h6>
+                            <p style="font-size: 0.7rem;" class="sm-text date mb-0">@activity.Time</p>
+                        </div>
+                    }
                     </div>
-                    <div class="alert alert-beige activity-item" role="alert">
-                        <h6>Asjid Created A New Admin</h6>
-                        <p style="font-size: 0.7rem;" class="sm-text date mb-0"> 9 July 2024 | 3:16 PM</p>
-                    </div>
-                    <div class="alert alert-beige activity-item" role="alert">
-                        <h6>Asjid Deleted A User</h6>
-                        <p style="font-size: 0.7rem;" class="sm-text date mb-0"> 9 July 2024 | 3:16 PM</p>
-                    </div>
+
                 </div>
             </div>
         </div>
+
+        
+
+
 
     </div>
 
