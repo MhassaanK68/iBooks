@@ -1,9 +1,9 @@
 ﻿@{
     Layout = "_AdminLayout";
 }
-@model UsersModel
+@model BooksModel
 
-
+<partial name="_AdminBooksModals"/>
 <div class="container-fluid mt-4">
     <!-- Page content -->
     <div class="row">
@@ -31,7 +31,7 @@
                         
                     </div>
                     <div class="card-footer text-center">
-                        <a class="btn a-btn text-primary">Click Here!</a>
+                        <a class="btn a-btn text-primary" data-bs-toggle="modal" data-bs-target="#CreateBook">Click Here!</a>
                     </div>
                 </div>
 
@@ -52,7 +52,7 @@
 
                     </div>
                     <div class="card-footer text-center">
-                        <a class="btn a-btn text-primary">Click Here!</a>
+                        <a class="btn a-btn text-primary" data-bs-toggle="modal" data-bs-target="#DeleteBook">Click Here!</a>
                     </div>
                 </div>
 

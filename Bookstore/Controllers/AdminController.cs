@@ -36,7 +36,7 @@ namespace Bookstore.Controllers
             }
 
             // Importing All Activities From Database
-            var ActivityList = db.AdminActivity.ToList();
+            var ActivityList = db.AdminActivity.OrderByDescending(x => x.Time).Take(5);
 
             // Creating DropDown List
             UsersViewModel model = new UsersViewModel()
@@ -68,6 +68,32 @@ namespace Bookstore.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult CreateBook()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult DeleteBook()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ScheduleBook()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ListBooks()
+        {
+            return View();
+        }
+
+
 
 
         public IActionResult Users()

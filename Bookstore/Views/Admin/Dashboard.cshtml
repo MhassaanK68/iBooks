@@ -3,7 +3,7 @@
 
     Layout = "_AdminLayout";
 
-    @model List<AdminActivityModel>
+    @model IQueryable<AdminActivityModel>
     @using System;
     @using Microsoft.AspNetCore.Http;
     @inject Microsoft.AspNetCore.Http.IHttpContextAccessor SessionAccessor
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <partial name="_AdminActionModals" model="ViewBag.dropdown" />
+    <partial name="_AdminUserModals" model="ViewBag.dropdown" />
 
     <!-- First Section -->
     <div class="row">
@@ -82,7 +82,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col mt-0">
-                                            <h5 class="card-title restitle card-title-w">Search User</h5>
+                                            <h5 class="card-title restitle card-title-w">Delete User</h5>
                                             <p class="res-para sm-text">Details By Username</p>
                                         </div>
                                         <div class="col-auto">
@@ -94,7 +94,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-0">
-                                        <button class="btn btn-lg btn-primary my-2" data-bs-toggle="modal" data-bs-target="#SearchUser">Click Here!</button>
+                                        <button class="btn btn-lg btn-primary my-2" data-bs-toggle="modal" data-bs-target="#DeleteUser">Click Here!</button>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                         <div class="col-6 text-end"><a><h5 class="text-primary clicker">View All</h5></a></div>
                     </div>
                     <!-- NOTIFICATION -->
-                    <div class="d-flex flex-column-reverse">
+                    <div class="d-flex flex-column">
                     @foreach (var activity in Model)
                     {
                         <div class="alert alert-beige activity-item" role="alert">

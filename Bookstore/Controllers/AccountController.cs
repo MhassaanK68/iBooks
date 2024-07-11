@@ -6,13 +6,13 @@ namespace Bookstore.Controllers
 {
     public class AccountController : Controller
     {
-        // Importing UsersDBContext as UsersDB
-        readonly public DBContext UsersDB;
+        // Importing dbContext as db
+        readonly public DBContext db;
 
-        // Initializes UsersDB to an Instance
-        public AccountController(DBContext UsersDBOject)
+        // Initializes db to an Instance
+        public AccountController(DBContext dbOject)
         {
-            UsersDB = UsersDBOject;     
+            db = dbOject;     
         }
 
         public IActionResult SignUp()
@@ -26,7 +26,7 @@ namespace Bookstore.Controllers
         public IActionResult SignUp(Cls_SignUpFields NewUser)
         {
 
-            bool IsUsernameExists = UsersDB.Users.Any(UserObj => UserObj.Username == NewUser.Username);
+            bool IsUsernameExists = db.Users.Any(UserObj => UserObj.Username == NewUser.Username);
 
             // Makes sure form was valid and primary key wasnt repeated
             if (ModelState.IsValid && !IsUsernameExists)
@@ -39,8 +39,8 @@ namespace Bookstore.Controllers
                 UsrToAdd.role = RoleType.User;
 
                 // Adding User Model Instance
-                UsersDB.Users.Add(UsrToAdd);
-                UsersDB.SaveChanges();
+                db.Users.Add(UsrToAdd);
+                db.SaveChanges();
                 ModelState.Clear();
 
                 // Success Message
@@ -69,7 +69,7 @@ namespace Bookstore.Controllers
 
             if (ModelState.IsValid)
             {
-                var TempUser = UsersDB.Users.Where(DB_Item => DB_Item.Username == IsUser.Username && DB_Item.Password == IsUser.Password).FirstOrDefault();
+                var TempUser = db.Users.Where(DB_Item => DB_Item.Username == IsUser.Username && DB_Item.Password == IsUser.Password).FirstOrDefault();
                 if (TempUser != null)
                 {
                     HttpContext.Session.SetString("Usr", TempUser.Username);
@@ -78,6 +78,11 @@ namespace Bookstore.Controllers
                     // If user is an admin redirect to admin panel
                     if (TempUser.role == RoleType.Admin)
                     {
+                        AdminActivityModel NewActivity = new AdminActivityModel()
+                        {
+                            AdminName = IsUser.Username, Activity = AdminActivityType.PanelLogin, ActivityMessage = "Logged Into The Admin Panel", Time = DateTime.Now
+                        };
+                        db.AdminActivity.Add(NewActivity);
                         return RedirectToAction("Dashboard", "Admin");
                     }
 

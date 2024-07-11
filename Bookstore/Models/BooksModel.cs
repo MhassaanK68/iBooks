@@ -17,6 +17,7 @@ namespace Bookstore.Models
 
         public Categories Category { get; set; }
 
+        public string Status { get; set; }
 
     }
 
