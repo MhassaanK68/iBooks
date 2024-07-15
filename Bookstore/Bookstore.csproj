@@ -20,6 +20,7 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="wwwroot\Assets\Images\Book-Thumnails\" />
+    <Folder Include="wwwroot\Books\Cover\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />

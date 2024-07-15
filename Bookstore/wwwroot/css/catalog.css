@@ -1,6 +1,20 @@
 body {
     background-color: #141414;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
 }
+
+.title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 3rem;
+    text-align: center;
+    color: white;
+    font-weight: 800;
+}
+
+
 
 .material-icons.md-18 {
     font-size: 18px;
@@ -18,26 +32,29 @@ body {
     font-size: 48px;
 }
 
-.catalog-container{
-
+.catalog-container {
     overflow: hidden;
-    
     white-space: nowrap;
-    
-    
+    display: flex;
+    align-items: center;
 }
 
-.category-heading{
-    font-family: Inter;
+
+.category-heading {
+    font-family: "Montserrat", sans-serif;
     color: white;
     margin-left: -5vw;
-
+    font-weight: 600;
+    font-size: 3rem;
 }
 
 .catalog-item {
     margin-right: 20px;
     aspect-ratio: 2 / 3;
+    width: 200px;
+    height: auto;
     border-radius: 8px;
+    transition: transform 0.3s ease;
 }
 
 .catalog-item:hover {
@@ -45,8 +62,118 @@ body {
 }
 
 .arrow-buttons {
-    font-size: 10px;
+    font-size: 36px;
     color: white;
     cursor: pointer;
-
+    z-index: 2000;
 }
+
+@media (max-width: 1200px) {
+    .catalog-item {
+        width: 180px;
+    }
+
+    .category-heading {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .catalog-item {
+        width: 150px;
+    }
+
+    .category-heading {
+
+        margin-left: -3.5vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .catalog-item {
+        width: 120px;
+    }
+
+    .category-heading {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .catalog-container {
+        overflow: scroll;
+        overflow-y: hidden;
+        padding-bottom: 5px;
+    }
+
+
+    .arrow-buttons {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+
+
+    .side-con {
+        flex: 0 0 10%;
+    }
+
+    .arrow-buttons {
+        font-size: 18px;
+    }
+}
+
+/* MD breakpoint adjustments */
+@media (max-width: 992px) {
+    .side-con {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+
+    .side-con.scroll-left {
+        left: 10px;
+    }
+
+    .side-con.scroll-right {
+        right: 10px;
+    }
+
+    .mid-con {
+        padding: 0 40px; /* Provide space for arrows */
+    }
+}
+
+
+/* Scrollbar styles for Bootstrap dark background */
+::-webkit-scrollbar {
+    margin-top: 5px;
+    width: 6px;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: red;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+        background-color: rgba(255, 255, 255, 0.7);
+    }
+
+::-webkit-scrollbar-corner {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+

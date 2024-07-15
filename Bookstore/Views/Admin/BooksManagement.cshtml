@@ -1,9 +1,10 @@
 ﻿@{
     Layout = "_AdminLayout";
 }
-@model BooksModel
+@model BooksInputModel
 
 <partial name="_AdminBooksModals"/>
+
 <div class="container-fluid mt-4">
     <!-- Page content -->
     <div class="row">
@@ -31,7 +32,7 @@
                         
                     </div>
                     <div class="card-footer text-center">
-                        <a class="btn a-btn text-primary" data-bs-toggle="modal" data-bs-target="#CreateBook">Click Here!</a>
+                        <a class="btn a-btn text-primary" data-bs-toggle="modal" data-bs-target="#CreateBook" asp-action="GetBookNames">Click Here!</a>
                     </div>
                 </div>
 
