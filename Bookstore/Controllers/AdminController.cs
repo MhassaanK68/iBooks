@@ -12,7 +12,7 @@ namespace Bookstore.Controllers
     public class AdminController : Controller
     {
 
-        bool? Exist;
+
 
         // Importing dbContext as db
         readonly public DBContext db;
@@ -53,8 +53,10 @@ namespace Bookstore.Controllers
                 }
 
             };
+            ViewBag.dropdown = model;
 
             // Returning User Delete Response IF CALL IS SENT FROM DASHBOARD
+            
             if ((bool?)TempData["Exist"] == false)
             {
                 model.Exist = false;
@@ -65,14 +67,20 @@ namespace Bookstore.Controllers
             }
 
 
-            ViewBag.dropdown = model;
+
+            List<String> CategoryList = new List<String>() { "Sci-Fi", "Adventure", "Romantic", "Horror", "Humor", "Fantasy", "Thrillers" };
+            ViewBag.CategoryDropdown = CategoryList;
+            ViewBag.BooksInputModel = new BooksInputModel();
+
             return View(ActivityList);
         }
+
+
 
         public IActionResult BooksManagement()
         {
 
-            List<String> CategoryList = new List<String>() { "Sci_Fi", "Adventure", "Romantic", "Horror", "Humor", "Fantasy", "Thrillers"};
+            List<String> CategoryList = new List<String>() { "Sci-Fi", "Adventure", "Romantic", "Horror", "Humor", "Fantasy", "Thrillers"};
             ViewBag.CategoryDropdown = CategoryList;
 
             return View();
@@ -93,14 +101,14 @@ namespace Bookstore.Controllers
 
                     //Creating Book To Add
                     BooksModel BookToAdd = new BooksModel()
-                    { BookName = NewBook.BookName, Author = NewBook.Author, Category = NewBook.Category, ImageSource = "/" + ImageName, Status = "Published"};
+                    { BookName = NewBook.BookName, Author = NewBook.Author, Category = NewBook.Category, ImageSource = "/" + ImageName};
 
                     //Creating Activity
                     AdminActivityModel NewActivity = new AdminActivityModel()
-                    {   Activity = AdminActivityType.CreateBook,
+                    { Activity = AdminActivityType.CreateBook,
                         AdminName = HttpContext.Session.GetString("Usr"),
                         MetaData = NewBook.BookName,
-                        ActivityMessage = "Created A New Book" + NewBook.BookName.ToString(),
+                        ActivityMessage = "New Book Added",
                         Time = DateTime.Now
                     };
 
@@ -108,7 +116,6 @@ namespace Bookstore.Controllers
                     db.AdminActivity.Add(NewActivity);
                     db.SaveChanges();
                     ModelState.Clear();
-                    ViewBag.CreateBookSuccess = "true";
 
                }
 
@@ -123,12 +130,22 @@ namespace Bookstore.Controllers
             if (db.Books.Any(ThisBook => ThisBook.BookName == BookNameToDelete.BookName))
             {
                 BooksModel BookToDelete = db.Books.First(ThisBook => ThisBook.BookName == BookNameToDelete.BookName);
+                string ImageRootPath = _webHostEnvironment.WebRootPath + BookToDelete.ImageSource;
+
+                AdminActivityModel NewActivity = new()
+                {
+                    AdminName = HttpContext.Session.GetString("Usr"), Activity = AdminActivityType.DeleteBook, ActivityMessage = "Book Removed", MetaData = BookNameToDelete.BookName, Time = DateTime.Now
+                };
+
+                db.Add(NewActivity);
                 db.Remove(BookToDelete);
+                //System.IO.File.Delete(ImageRootPath);
                 db.SaveChanges();
+                TempData["BookDelete"] = "true";
             }
             else
             {
-                ViewBag.BookFound = false;
+                TempData["BookDelete"] = "false";
             }
             return RedirectToAction("BooksManagement");
         }
@@ -139,10 +156,11 @@ namespace Bookstore.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult ListBooks()
+        public string GetBooks()
         {
-            return View();
+            var booknames = db.Books.ToList();
+            var json = JsonConvert.SerializeObject(booknames);
+            return json;
         }
 
 
@@ -207,7 +225,7 @@ namespace Bookstore.Controllers
                     AdminName = HttpContext.Session.GetString("Usr"),
                     Activity = AdminActivityType.CreateUser,
                     MetaData = NewEntry.Username,
-                    ActivityMessage = "Created A New " + NewEntry.role.ToString() + " '" + NewEntry.Username.ToString() + "'",
+                    ActivityMessage = "New " + NewEntry.role.ToString() + " Created",
                     Time = DateTime.Now
 
                 };
@@ -238,7 +256,7 @@ namespace Bookstore.Controllers
                     AdminName = HttpContext.Session.GetString("Usr"),
                     Activity = AdminActivityType.DeleteUser,
                     MetaData = UsrToRemove.Username,
-                    ActivityMessage = "Deleted The " + UsrToRemove.role.ToString() + " '" + UsrToRemove.Username.ToString() + "'",
+                    ActivityMessage = UsrToRemove.role.ToString() + " Removed",
                     Time = DateTime.Now
                 };
 
@@ -261,10 +279,7 @@ namespace Bookstore.Controllers
     
        
 
-        public IActionResult Team()
-        {
-            return View();
-        }
+
 
         public String NotAdmin()
         {
@@ -299,6 +314,7 @@ namespace Bookstore.Controllers
             // If NotLogIn + NotAdmin
 
             ViewData["IsAdmin"] = "False";
+            NotAdmin();
             return false;
             
         }

@@ -78,11 +78,17 @@ namespace Bookstore.Controllers
                     // If user is an admin redirect to admin panel
                     if (TempUser.role == RoleType.Admin)
                     {
-                        AdminActivityModel NewActivity = new AdminActivityModel()
-                        {
-                            AdminName = IsUser.Username, Activity = AdminActivityType.PanelLogin, ActivityMessage = "Logged Into The Admin Panel", Time = DateTime.Now
+                        AdminActivityModel NewActivity = new() 
+                        { 
+                        Activity = AdminActivityType.PanelLogin,
+                        ActivityMessage = IsUser.Username + " Logged In",
+                        MetaData = "Signed In",
+                        Time = DateTime.Now,
+                        AdminName = IsUser.Username
                         };
+
                         db.AdminActivity.Add(NewActivity);
+                        db.SaveChanges();
                         return RedirectToAction("Dashboard", "Admin");
                     }
 
@@ -115,6 +121,9 @@ namespace Bookstore.Controllers
         {
             if (HttpContext.Session.GetString("Usr") != null)
             {
+                AdminActivityModel NewActivity = new() { Activity = AdminActivityType.PanelLogout, AdminName = HttpContext.Session.GetString("Usr"), Time = DateTime.Now, MetaData = "Sign Out", ActivityMessage = HttpContext.Session.GetString("Usr") + " Signed Out" };
+                db.AdminActivity.Add(NewActivity);
+                db.SaveChanges();
                 HttpContext.Session.Remove("Usr");
                 return RedirectToAction("Index", "Home");
             }

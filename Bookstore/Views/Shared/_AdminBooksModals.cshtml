@@ -1,5 +1,8 @@
 ﻿@model BooksInputModel
-
+@{
+    string? RetBookDelete = TempData["BookDelete"] as string;
+    string? RetBookCreate = TempData["BookCreate"] as string;
+}
 
 @* Create New Book Modal *@
 
@@ -50,7 +53,30 @@
     </div>
 </div>
 
+@if (RetBookCreate == "true")
+{
+    <script>
+         document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: 'Operation Successful',
+                text: 'The Book Has Been Added!!!',
+                icon: 'Success'
+            });
+        });
+     </script>
 
+}else if (RetBookCreate == "false")
+{
+    <script>
+         document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: '404 ERROR',
+                text: 'Something Went Wrong!',
+                icon: 'error'
+            });
+        });
+    </script>
+}
 
 
 @* DELETE BOOK MODAL *@
@@ -66,13 +92,13 @@
             <div class="modal-body p-5">
                 <form asp-action="DeleteBook" asp-controller="Admin" method="post" id="DeleteBookForm">   
                     <div class="mb-3">
-                        <input type="text" asp-for="BookName" class="form-control" id="searchInput" placeholder="Search...">
+                        <input type="text" asp-for="BookName" autocomplete="off" class="form-control" id="searchInput" placeholder="Search...">
                     </div>
                     <div id="filteredResults"></div>
                 </form>
             </div>
 
-            <script>
+           <script>
                 fetch('/Admin/GetBookNames')
                     .then(response => response.json())
                     .then(data => {
@@ -81,13 +107,21 @@
 
                         // Function to filter and display results
                         const updateResults = (searchTerm = '') => {
-                            const filteredData = data.filter(item => item.toLowerCase().includes(searchTerm.toLowerCase()));
+                            // Filter and prioritize items where the search term matches at the start
+                            const filteredData = data.filter(item => item.toLowerCase().startsWith(searchTerm.toLowerCase()));
+
+                            // Sort the filtered data alphabetically
+                            filteredData.sort((a, b) => a.localeCompare(b));
+
                             filteredResults.innerHTML = '';
 
-                            filteredData.forEach(item => {
+                            const maxResults = 5; // Maximum number of results to display
+                            const slicedData = filteredData.slice(0, maxResults); // Slice the array to get only the first 5 items
+
+                            slicedData.forEach(item => {
                                 const listItem = document.createElement('div');
                                 listItem.textContent = item;
-                                listItem.classList.add('p-2', 'border-bottom', 'cursor-pointer'); // Add cursor-pointer class
+                                listItem.classList.add('p-2', 'border-bottom', 'cursor-pointer'); 
                                 listItem.addEventListener('click', () => {
                                     searchInput.value = item; // Fill search input with clicked item
                                     updateResults(item); // Update results based on clicked item
@@ -107,6 +141,8 @@
                     .catch(error => console.error('Error:', error));
             </script>
 
+
+
             <style>
                 .cursor-pointer {
                     cursor: pointer;
@@ -116,6 +152,123 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                 <button type="submit" form="DeleteBookForm" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (RetBookDelete == "true")
+{
+    <script>
+         document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: 'Operation Successful',
+                text: 'The Book Has Been Removed',
+                icon: 'Success'
+            });
+        });
+     </script>
+
+}else if (RetBookDelete == "false")
+{
+    <script>
+         document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: '404 ERROR',
+                text: 'The Book Was Not Found',
+                icon: 'error'
+            });
+        });
+    </script>
+}
+
+
+
+@* SHOW LIST  *@
+
+<div class="modal fade"  id="ListBook" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 70vw;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Books' Details</h1
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-5">
+                <div id="booksTableContainer">
+                    <table id="booksTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>Book Name</th>
+                                <th>Author</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>See Image</th>
+                            </tr>
+                        </thead>
+                        <tbody id="booksTableBody">
+        
+                        </tbody>
+                    </table>
+                </div>             
+            </div>
+
+            <script>
+                // Function to fetch books from the server and populate the table
+                const fetchAndPopulateBooks = () => {
+                    fetch('/admin/GetBooks')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(books => {
+                            const tableBody = document.getElementById('booksTableBody');
+                            tableBody.innerHTML = ''; // Clear existing table rows
+
+                            books.forEach(book => {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${book.BookName}</td>
+                                    <td>${book.Author}</td>
+                                    <td>${book.Category}</td>
+                                    <td>${book.Status}</td>
+                                    <td><button class="btn btn-outline-primary" onclick="openImage('${book.ImageSource}')">View Image</button></td>
+                                `;
+                                tableBody.appendChild(row);
+                            });
+                        })
+                        .catch(error => {
+                            
+                            document.addEventListener('DOMContentLoaded', function () {
+                                Swal.fire({
+                                    title: '404 ERROR',
+                                    text: 'Something Went Wrong!',
+                                    icon: 'error'
+                                });
+                            });
+
+                        });
+
+                            
+                };
+
+                const openImage = (imageSource) => {
+                     window.open(imageSource, '_blank');
+                };
+
+
+                // Call fetchAndPopulateBooks to populate the table initially
+                fetchAndPopulateBooks();
+            </script>
+
+
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="CreateBookForm" class="btn btn-primary">Create</button>
             </div>
         </div>
     </div>

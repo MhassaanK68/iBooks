@@ -17,8 +17,17 @@
 <body class="bg-dark">
 
 
-    
-@*     <h1 class="title" >ONLINE CATALOG</h1> *@
+
+    <div class="container bg-light p-5">
+        <div class="row">
+            <div class="col-4"> 
+                <img style="width: 250px; border-radius: 15px;" class="" src="/Books/Cover/0c92b066-8ab1-4aae-9053-aeb425154a52(5) Harry Potter & The Order Of The Pheonix.jpg"/>
+            </div>
+            <div class="col-8">
+                <h1 class="title muted text-start text-dark">Best Of This Week</h1>
+            </div>
+        </div>
+    </div>
     
 
 
@@ -39,7 +48,9 @@
             
                                     @foreach (var Books in item.BookCategory)
                                     {
-                                        <a class="catalog-anchor"><img class="catalog-item" src="@Books.ImageSource" /></a>
+                                        <div class="grow-hover">
+                                            <a class="catalog-anchor"><img class="catalog-item" src="@Books.ImageSource" /></a>
+                                        </div>
                                     }
 
                             </div>

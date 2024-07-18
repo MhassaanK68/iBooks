@@ -31,7 +31,7 @@ namespace Bookstore.Controllers
             {
                 List<BooksViewModel> ViewBooks = new List<BooksViewModel>()
                 {
-                    new BooksViewModel { CategoryName = "Sci_Fi",    BookCategory = db.Books.Where(book => book.Category == "Sci_Fi")    },
+                    new BooksViewModel { CategoryName = "Sci-Fi",    BookCategory = db.Books.Where(book => book.Category == "Sci-Fi")    },
                     new BooksViewModel { CategoryName = "Adventure", BookCategory = db.Books.Where(book => book.Category == "Adventure") },
                     new BooksViewModel { CategoryName = "Romantic",  BookCategory = db.Books.Where(book => book.Category == "Romantic")  },
                     new BooksViewModel { CategoryName = "Horror",    BookCategory = db.Books.Where(book => book.Category == "Horror")    },

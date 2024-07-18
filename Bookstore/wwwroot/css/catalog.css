@@ -3,7 +3,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .title {
@@ -13,8 +14,6 @@ body {
     color: white;
     font-weight: 800;
 }
-
-
 
 .material-icons.md-18 {
     font-size: 18px;
@@ -39,26 +38,30 @@ body {
     align-items: center;
 }
 
-
 .category-heading {
     font-family: "Montserrat", sans-serif;
     color: white;
     margin-left: -5vw;
     font-weight: 600;
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 
 .catalog-item {
     margin-right: 20px;
     aspect-ratio: 2 / 3;
-    width: 200px;
+    width: 180px;
     height: auto;
     border-radius: 8px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: width 0.2s;
+    overflow: hidden; /* Ensure the rounded corners are preserved */
 }
 
 .catalog-item:hover {
-    transform: scale(1.1);
+    
+    transform: translateZ(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow to enhance the pop out effect */
+    width: 210px;
 }
 
 .arrow-buttons {
@@ -76,6 +79,13 @@ body {
     .category-heading {
         font-size: 2rem;
     }
+
+    .catalog-item:hover {
+        transform: translateZ(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow to enhance the pop out effect */
+        width: 195px;
+    }
+
 }
 
 @media (max-width: 992px) {
@@ -84,9 +94,15 @@ body {
     }
 
     .category-heading {
-
         margin-left: -3.5vw;
     }
+
+    .catalog-item:hover {
+        transform: translateZ(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow to enhance the pop out effect */
+        width: 170px;
+    }
+
 }
 
 @media (max-width: 768px) {
@@ -104,7 +120,11 @@ body {
         overflow-y: hidden;
         padding-bottom: 5px;
     }
-
+    .catalog-item:hover {
+        transform: translateZ(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow to enhance the pop out effect */
+        width: 140px;
+    }
 
     .arrow-buttons {
         font-size: 24px;
@@ -112,8 +132,6 @@ body {
 }
 
 @media (max-width: 576px) {
-
-
     .side-con {
         flex: 0 0 10%;
     }
@@ -121,6 +139,7 @@ body {
     .arrow-buttons {
         font-size: 18px;
     }
+
 }
 
 /* MD breakpoint adjustments */
@@ -132,19 +151,18 @@ body {
         z-index: 1;
     }
 
-    .side-con.scroll-left {
-        left: 10px;
-    }
+        .side-con.scroll-left {
+            left: 10px;
+        }
 
-    .side-con.scroll-right {
-        right: 10px;
-    }
+        .side-con.scroll-right {
+            right: 10px;
+        }
 
     .mid-con {
         padding: 0 40px; /* Provide space for arrows */
     }
 }
-
 
 /* Scrollbar styles for Bootstrap dark background */
 ::-webkit-scrollbar {
@@ -160,20 +178,19 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: red;
+    background-color: darkgrey;
     border-radius: 10px;
     border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
     ::-webkit-scrollbar-thumb:hover {
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: darkgrey;
     }
 
     ::-webkit-scrollbar-thumb:active {
-        background-color: rgba(255, 255, 255, 0.7);
+        background-color: black;
     }
 
 ::-webkit-scrollbar-corner {
     background-color: rgba(255, 255, 255, 0.05);
 }
-

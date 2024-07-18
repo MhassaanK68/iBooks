@@ -12,6 +12,7 @@ namespace Bookstore.Models
         public string ActivityMessage { get; set; }
         public DateTime Time { get; set; }
 
+
     }
 
     public enum AdminActivityType
@@ -21,7 +22,8 @@ namespace Bookstore.Models
         EditUser,
         CreateBook,
         DeleteBook,
-        PanelLogin
+        PanelLogin,
+        PanelLogout
     }
 
 
