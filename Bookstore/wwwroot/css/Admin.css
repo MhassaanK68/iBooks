@@ -95,7 +95,9 @@ body {
 
 
 .active-link {
-    color: blue !important;
+    background-color: blue !important;
+    color: white !important;
+    border-radius: 8px;
 }
 
 /* Styling for nav links inside sidebar */

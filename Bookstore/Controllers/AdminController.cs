@@ -1,5 +1,6 @@
 ﻿using Bookstore.Migrations;
 using Bookstore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,8 +8,8 @@ using Newtonsoft.Json;
 using NuGet.Protocol;
 using System.Linq;
 
-namespace Bookstore.Controllers
-{
+namespace Bookstore.Controllers { 
+
     public class AdminController : Controller
     {
 
@@ -23,11 +24,12 @@ namespace Bookstore.Controllers
         {
             _webHostEnvironment = webHostEnvironment;
             db = dbObject;
+            
+
         }
 
 
         // DASHBOARD ACTION METHOD
-
         [Route("/admin")]
         [Route("/admin/dashboard")]
         public IActionResult Dashboard()
@@ -79,6 +81,16 @@ namespace Bookstore.Controllers
 
         public IActionResult BooksManagement()
         {
+            if (!IsLogin())
+            {
+                return RedirectToAction("SignIn", "Account");
+
+            }
+            else if (!IsAdmin())
+            {
+                return RedirectToAction("NotAdmin");
+            }
+
 
             List<String> CategoryList = new List<String>() { "Sci-Fi", "Adventure", "Romantic", "Horror", "Humor", "Fantasy", "Thrillers"};
             ViewBag.CategoryDropdown = CategoryList;
@@ -139,9 +151,9 @@ namespace Bookstore.Controllers
 
                 db.Add(NewActivity);
                 db.Remove(BookToDelete);
-                //System.IO.File.Delete(ImageRootPath);
                 db.SaveChanges();
                 TempData["BookDelete"] = "true";
+                try { System.IO.File.Delete(ImageRootPath); } catch (IOException) {};
             }
             else
             {
@@ -276,8 +288,22 @@ namespace Bookstore.Controllers
             return RedirectToAction("Users");
         }
 
-    
-       
+
+        public IActionResult Settings()
+        {
+            if (!IsLogin()) {
+                return RedirectToAction("SignIn", "Account");
+
+            }
+            else if (!IsAdmin())
+            {
+                return RedirectToAction("NotAdmin");
+            }
+
+
+            UsersModel CurrentUser = db.Users.FirstOrDefault(x => x.Username == HttpContext.Session.GetString("Usr"));
+            return View(CurrentUser);
+        }
 
 
 
@@ -320,6 +346,10 @@ namespace Bookstore.Controllers
         }
 
 
+        
+
+            
+        
         public string GetBookNames()
         {
             var booknames = db.Books.Select(x => x.BookName);

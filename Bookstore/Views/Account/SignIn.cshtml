@@ -59,7 +59,7 @@
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto">
-    <form asp-action="SignIn" asp-controller="Account">
+    <form asp-action="SignIn" asp-controller="Account" id="SignInForm">
     
         <img class="" src="/Assets/Images/logo.png" alt="" width="72" height="67">
 
@@ -100,16 +100,21 @@
          
         <br/>
 
-        <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+            <button class="btn btn-primary w-100 py-2 submitBtn" type="submit">Sign in</button>
         <p class="mt-5 mb-3 text-body-secondary">© 2017–2024</p>
     </form>
 </div>
 </main>
  <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-        $('input[type=submit]').click(function () {
-            $(this).attr('disabled', 'disabled');
-        });</script>
+ <script src="~/lib/jquery/dist/jquery.min.js"></script>
+ <script>
+        $(document).ready(function () {
+            $("#SignInForm").submit(function () {
+                $(".submitBtn").attr("disabled", true);
+                return true;
+            });
+        });
+ </script>
 
 
 </body>
