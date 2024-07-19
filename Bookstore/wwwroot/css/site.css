@@ -57,6 +57,12 @@
     font-family: Inter;
 }
 
+.headings2 {
+    font-weight: 800;
+    font-family: Inter;
+    font-size: calc(1rem + 1.5vw);
+}
+
 .dSection {
     height: 400px;
 }
@@ -71,9 +77,14 @@
     overflow: scroll;
 }
 
+.profile-ico{
+    max-height: 100%;
+    max-width: auto;
 
+
+}
 .resText {
-    font-size: calc(1rem + 1.1vw);
+    font-size: calc(0.6rem + 1.5vw);
 }
 
 .XLSection {
@@ -108,3 +119,7 @@
         .scroll-container::-webkit-scrollbar-thumb:hover {
             background: none;
         }
+
+.round-h {
+    border-radius: 15px;
+}

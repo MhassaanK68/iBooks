@@ -9,6 +9,8 @@
     <!-- Link to CSS -->
     <link href="~/css/catalog.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Patrick+Hand&display=swap" rel="stylesheet">
@@ -18,16 +20,6 @@
 
 
 
-    <div class="container bg-light p-5">
-        <div class="row">
-            <div class="col-4"> 
-                <img style="width: 250px; border-radius: 15px;" class="" src="/Books/Cover/0c92b066-8ab1-4aae-9053-aeb425154a52(5) Harry Potter & The Order Of The Pheonix.jpg"/>
-            </div>
-            <div class="col-8">
-                <h1 class="title muted text-start text-dark">Best Of This Week</h1>
-            </div>
-        </div>
-    </div>
     
 
 
@@ -49,7 +41,8 @@
                                     @foreach (var Books in item.BookCategory)
                                     {
                                         <div class="grow-hover">
-                                            <a class="catalog-anchor"><img class="catalog-item" src="@Books.ImageSource" /></a>
+
+                                        <a class="catalog-anchor" data-bs-toggle="modal" data-bs-target="#BookPreviewModal"><img class="catalog-item" src="@Books.ImageSource" /></a>
                                         </div>
                                     }
 
@@ -63,6 +56,21 @@
             }
 
         }
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal fade" id="BookPreviewModal" tabindex="-1" aria-labelledby="BookPreviewLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    ...
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->

@@ -52,16 +52,38 @@ body {
     width: 180px;
     height: auto;
     border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    transition: width 0.2s;
+transition: width 0.2s;
     overflow: hidden; /* Ensure the rounded corners are preserved */
 }
 
 .catalog-item:hover {
+    width: 210px ;
+    transition: width 0.35s;
+    transition-delay: 1s;
+
+}
+
+.search-ico {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    transition: .5s ease;
+
+}
+
+@keyframes increaseWidth {
+    to {width: 210px;}
+}
+
+@keyframes decreaseWidth {
     
-    transform: translateZ(5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow to enhance the pop out effect */
-    width: 210px;
+
+    to {width: 180px;}
 }
 
 .arrow-buttons {
