@@ -19,7 +19,7 @@ namespace Bookstore.Controllers
             return View();
         }
 
-        public IActionResult Catalog()
+        public IActionResult Catalog(int id)
         {
 
             if (HttpContext.Session.GetString("Usr") == null)
@@ -47,6 +47,12 @@ namespace Bookstore.Controllers
                         item.CategoryName = null;
                     }
                 }
+                
+                if (id != null)
+                {
+                    ViewBag.Book = db.Books.FirstOrDefault(x => x.BookID == id);
+                }
+
                 return View(ViewBooks);
             };            
             

@@ -1,3 +1,7 @@
+body{
+    overflow-x: hidden;
+}
+
 .cardbg {
     background-color: aliceblue;
 }
@@ -43,6 +47,20 @@
         right: 0;
         max-width: 200px;
     }
+
+    .headings2{
+        font-size: calc(1ren + 1vw);
+    }
+
+    .home-img{
+        max-width: 80%;
+    }
+}
+
+
+
+.accordion-header{
+    font-family: Meiryo;
 }
 
 
@@ -58,13 +76,17 @@
 }
 
 .headings2 {
-    font-weight: 800;
+    font-weight: 700;
     font-family: Inter;
-    font-size: calc(1rem + 1.5vw);
+    font-size: calc(0.7rem + 1.5vw);
 }
 
 .dSection {
-    height: 400px;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .ht {
@@ -81,10 +103,27 @@
     max-height: 100%;
     max-width: auto;
 
-
 }
+
+
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+}
+
+.footer-text {
+    margin-bottom: 10px;
+}
+
+.footer .social-icons a {
+    margin: 0 10px;
+    color: #495057;
+    font-size: 1.5rem;
+}
+
+
 .resText {
-    font-size: calc(0.6rem + 1.5vw);
+    font-size: calc(0.8rem + 1.3vw);
 }
 
 .XLSection {

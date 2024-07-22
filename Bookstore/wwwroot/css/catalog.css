@@ -52,7 +52,7 @@ body {
     width: 180px;
     height: auto;
     border-radius: 8px;
-transition: width 0.2s;
+    transition: width 0.2s;
     overflow: hidden; /* Ensure the rounded corners are preserved */
 }
 
@@ -61,6 +61,53 @@ transition: width 0.2s;
     transition: width 0.35s;
     transition-delay: 1s;
 
+}
+
+.product-details {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    display: flex;
+}
+
+.product-image {
+    width: 180px;
+    height: auto;
+    border-radius: 8px;
+    aspect-ratio: 2/3;
+}
+
+.product-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.product-author {
+    font-size: 18px;
+    color: #555;
+}
+
+.product-description {
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.btn-custom {
+    margin-top: 20px;
+}
+
+
+.custom-modal-dialog {
+    max-width: 50vw !important;
+    margin: 1.75rem auto;
+}
+
+.book-thumbnail {
+    width: 10vw;
+    height: auto;
+    overflow: hidden;
 }
 
 .search-ico {
@@ -108,6 +155,10 @@ transition: width 0.2s;
         width: 195px;
     }
 
+    .custom-modal-dialog {
+        max-width: 80vw !important;
+        margin: 1.75rem auto;
+    }
 }
 
 @media (max-width: 992px) {
@@ -124,6 +175,8 @@ transition: width 0.2s;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow to enhance the pop out effect */
         width: 170px;
     }
+
+
 
 }
 
@@ -151,6 +204,22 @@ transition: width 0.2s;
     .arrow-buttons {
         font-size: 24px;
     }
+
+    .custom-modal-dialog {
+        max-width: 90vw !important;
+        margin: 1.75rem auto;
+    }
+
+    .product-details{
+        flex-direction: column;
+    }
+
+    .product-imagee{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
 }
 
 @media (max-width: 576px) {
@@ -161,6 +230,12 @@ transition: width 0.2s;
     .arrow-buttons {
         font-size: 18px;
     }
+
+    .custom-modal-dialog {
+        max-width: 100vw !important;
+        margin: 1.75rem auto;
+    }
+
 
 }
 
