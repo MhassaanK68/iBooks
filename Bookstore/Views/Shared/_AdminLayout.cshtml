@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor SessionAccessor
+
+@{
+    string username = SessionAccessor.HttpContext.Session.GetString("Usr");
+    string role = SessionAccessor.HttpContext.Session.GetString("Role");
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -92,14 +100,8 @@
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
             </symbol>
         </svg>
-@{
 
 
-        @using Microsoft.AspNetCore.Http;
-        @inject Microsoft.AspNetCore.Http.IHttpContextAccessor SessionAccessor
-
-    string username = SessionAccessor.HttpContext.Session.GetString("Usr");
- }
     <style>
 
     </style>
@@ -115,6 +117,41 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="#">Admin Panel</a>
+
+            <div class="d-none d-sm-block">
+                @if (username != null)
+                {
+
+                    <div class="dropdown">
+                        <a class="nav-link d-flex align-items-center  border-2 border-light py-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="material-icons icons me-1 py-2" style="font-size: calc(1rem + 1vw); color: black!important;">account_circle</i>
+                            <p class="dropdown-toggle" style="margin-bottom: 0;"><strong style="color: black;">Hi! @username</strong></p>
+                        </a>
+
+
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                            @if (role == "Admin")
+                            {
+                                <a class="dropdown-item" href="/Admin"><i class="fa-solid fa-lock"></i> Admin Panel</a>
+                            }
+                            <a class="dropdown-item" href="/account/myaccount"><i class="fas fa-user"></i> Account</a>
+                            <a class="dropdown-item" href="https://wa.me/923307039460"><i class="fas fa-envelope"></i> Contact</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-question-circle"></i> Help</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/account/logout"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                        </div>
+                    </div>
+
+
+                }
+                else
+                {
+                    <a href="/Account/SignIn"><button class="btn btn-dark pe-4 ps-4 nav-item me-2 btn-signin">Sign-In</button></a>
+                }
+            </div>
+
         </div>
     </nav>
     <!-- Sidebar -->
@@ -153,7 +190,7 @@
                 <div class="border my-4"></div>
 
                 <li class="nav-item">
-                    <a class="nav-link active d-flex flex-row align-items-center my-1" href="/Admin/Settings">
+                    <a class="nav-link active d-flex flex-row align-items-center my-1" href="/Account/MyAccount">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
                             <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0" />
                             <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z" />
@@ -193,6 +230,7 @@
 
     @* Sweet Alert 2 *@
     <script src="/lib/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script>
 

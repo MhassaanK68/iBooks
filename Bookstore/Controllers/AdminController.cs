@@ -43,7 +43,7 @@ namespace Bookstore.Controllers {
             }
 
             // Importing All Activities From Database
-            var ActivityList = db.AdminActivity.OrderByDescending(x => x.Time).Take(5);
+            var ActivityList = db.AdminActivity.OrderByDescending(x => x.Time);
 
             // Creating DropDown List
             UsersViewModel model = new UsersViewModel()
@@ -55,6 +55,7 @@ namespace Bookstore.Controllers {
                 }
 
             };
+
             ViewBag.dropdown = model;
 
             // Returning User Delete Response IF CALL IS SENT FROM DASHBOARD

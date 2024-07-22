@@ -1,1 +1,103 @@
-﻿<h1>Dashboard</h1>
+﻿@model UsersModel
+@{
+    string? ChangePasswordReturn = TempData["PasswordChangeReturn"] as string;
+    string? UpdateDetailsReturn = TempData["UpdateDetailsReturn"] as string;
+}
+
+
+
+<div class="container mt-5">
+    <h1 class="mb-4">User Account Settings</h1>
+
+    <!-- Profile Information -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title">Profile Information</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="UpdateDetails" asp-controller="Account" method="post">
+                <div class="mb-3">
+                    <label asp-for="Username" class="form-label">Username</label>
+                    <input class="form-control" asp-for="Username" value="@Model.Username">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email Address</label>
+                    <input class="form-control" asp-for="Email" value="@Model.Email">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                    <input class="form-control" asp-for="PhoneNumber" value="@Model.PhoneNumber">
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Security Settings -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title">Security Settings</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="ChangePassword" asp-controller="Account" method="post">
+                <div class="mb-3">
+                    <label for="password" class="form-label">Current Password</label>
+                    <input type="password" class="form-control" name="CurrentPassword" id="currentPassword" placeholder="Current password">
+                </div>
+                <div class="mb-3">
+                    <label for="newPassword" class="form-label">New Password</label>
+                    <input type="password" class="form-control" name="NewPassword" id="newPassword" placeholder="New password">
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                    <input type="password" class="form-control" name="ConfirmPassword" id="confirmPassword" placeholder="Confirm new password">
+                </div>
+                <button type="submit" class="btn btn-primary">Change Password</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Account Preferences -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title">Account Preferences</h5>
+        </div>
+        <div class="card-body">
+            <form >
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="newsletter" checked>
+                    <label class="form-check-label" for="newsletter">
+                        Subscribe to newsletter
+                    </label>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                    <label class="form-check-label" for="twoFactorAuth">
+                        Enable Two-Factor Authentication
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Preferences</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (TempData["PasswordChangeReturn"] != null)
+{
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire(" @ChangePasswordReturn! ");
+        });
+        
+    </script>
+}
+
+@if (TempData["UpdateDetailsReturn"] != null)
+{
+    <script>       
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire(" @UpdateDetailsReturn! ");
+        });
+    </script>
+}

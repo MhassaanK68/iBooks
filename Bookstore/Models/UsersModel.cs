@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Composition.Convention;
@@ -19,6 +20,9 @@ namespace Bookstore.Models
 
         [Column]
         public RoleType role { get; set; }
+
+        [Column]
+        public string? PhoneNumber { get; set; }
 
     }
 

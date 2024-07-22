@@ -1,6 +1,7 @@
 ﻿using Bookstore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using System.Text.RegularExpressions;
 
 namespace Bookstore.Controllers
 {
@@ -73,6 +74,7 @@ namespace Bookstore.Controllers
                 if (TempUser != null)
                 {
                     HttpContext.Session.SetString("Usr", TempUser.Username);
+                    HttpContext.Session.SetString("Role", TempUser.role.ToString());
 
                     TempData["IsLoginFail"] = null;
                     // If user is an admin redirect to admin panel
@@ -104,17 +106,79 @@ namespace Bookstore.Controllers
             return View();
         }
         
-        
+
         public IActionResult MyAccount()
         {
-            if (HttpContext.Session.GetString("UserSession") != null)
-            {               
-                return View();
+            if (HttpContext.Session.GetString("Usr") != null)
+            {
+                var Username = HttpContext.Session.GetString("Usr");
+                UsersModel? CurrentUser = db.Users.FirstOrDefault(x => x.Username ==  Username); 
+                return View(CurrentUser);
             }
             else
             {
                 return RedirectToAction("SignIn");
             }
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(string CurrentPassword, string NewPassword, string ConfirmPassword)
+        {
+            string username = HttpContext.Session.GetString("Usr");
+            UsersModel ThisUser = db.Users.FirstOrDefault(x => x.Username == username);
+            if (ThisUser.Password == CurrentPassword)
+            {
+                if (NewPassword == ConfirmPassword)
+                {
+                    if (ThisUser != null)
+                    {
+                        ThisUser.Password = NewPassword;
+                        db.Users.Update(ThisUser);
+                        db.SaveChanges();
+                        TempData["PasswordChangeReturn"] = "Password Changed Successfully";
+                    }
+                }
+                else
+                {
+                    TempData["PasswordChangeReturn"] = "Both Passwords Dont Match";
+                }
+            } 
+            else
+            { 
+                TempData["PasswordChangeReturn"] = "Incorrect Current Password"; 
+            }
+
+            return RedirectToAction("MyAccount");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateDetails(UsersModel Changes)
+        {
+            UsersModel ThisUser = db.Users.FirstOrDefault(x => x.Username == HttpContext.Session.GetString("Usr"));
+
+            if (Changes.Username == ThisUser.Username && Changes.Email == ThisUser.Email && Changes.PhoneNumber == ThisUser.PhoneNumber)
+            {
+                TempData["UpdateDetailsReturn"] = "You Haven't Changed Anything";
+            }
+            else if (Changes.Username != ThisUser.Username && db.Users.Any(x=> x.Username == Changes.Username))
+            {
+                TempData["UpdateDetailsReturn"] = "The Username Is Unavailable";
+            }
+            else if (Changes.PhoneNumber != ThisUser.PhoneNumber && Changes.PhoneNumber.Length < 11 || !Regex.IsMatch(Changes.PhoneNumber, @"^\d+$"))
+            {
+                TempData["UpdateDetailsReturn"] = "Invalid Phone Number Entered";
+            }
+            else
+            {
+                ThisUser.Email = Changes.Email;
+                ThisUser.Username = Changes.Username;
+                ThisUser.PhoneNumber = Changes.PhoneNumber;
+                db.Users.Update(ThisUser);
+                db.SaveChanges();
+                TempData["UpdateDetailsReturn"] = "Changes Successfully Implemented";
+
+            }
+                return RedirectToAction("MyAccount");
         }
 
         public IActionResult Logout()

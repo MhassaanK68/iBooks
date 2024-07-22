@@ -41,6 +41,13 @@ body{
     }
 
 /* Media query for responsive adjustments */
+@media (max-width: 1200px){
+    .home-img{
+        max-width: 90%;
+    }
+}
+
+
 @media (max-width: 768px) {
     .dropdown .dropdown-menu {
         left: auto;

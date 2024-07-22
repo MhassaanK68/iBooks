@@ -1,6 +1,5 @@
 ﻿@{
     
-
     Layout = "_AdminLayout";
 
     @model IQueryable<AdminActivityModel>
@@ -136,7 +135,7 @@
                 <div class="card-body">
                     <div class="row p-3">
                         <div class="col-6 h4">Activity</div>
-                        <div class="col-6 text-end"><a><h5 class="text-primary clicker">View All</h5></a></div>
+                        <div class="col-6 text-end"><a data-bs-toggle="modal" data-bs-target="#ActivityListModal"><h5 class="text-primary clicker">View All</h5></a></div>
                     </div>
                     <!-- NOTIFICATION -->
 
@@ -204,6 +203,80 @@
 
 
 
+    </div>
+
+
+    <div class="modal fade" id="ActivityListModal" tabindex="-1" aria-labelledby="ActivityListModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="ActivityListModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   
+                    @foreach (var activity in Model)
+                    {
+                        string color;
+                        string icon;
+
+                        switch (activity.Activity)
+                        {
+                            case AdminActivityType.CreateUser:
+                                color = "#FFB800";
+                                icon = "person_add";
+                                break;
+                            case AdminActivityType.DeleteUser:
+                                color = "#FF5733";
+                                icon = "person_cancel";
+                                break;
+                            case AdminActivityType.DeleteBook:
+                                color = "#FFC300";
+                                icon = "tab_close";
+                                break;
+                            case AdminActivityType.CreateBook:
+                                color = "#00C9A7";
+                                icon = "library_add";
+                                break;
+                            case AdminActivityType.PanelLogin:
+                                color = "#FF5733";
+                                icon = "passkey";
+                                break;
+                            case AdminActivityType.PanelLogout:
+                                color = "#e52165";
+                                icon = "logout";
+                                break;
+                            default:
+                                color = "#CCCCCC";
+                                icon = "bolt";
+                                break;
+                        }
+
+
+
+
+                        <div class="notification d-flex align-items-center mb-3" style="--color: @color;">
+                            <div class="icon d-flex align-items-center justify-content-center" style="background-color: @color;">
+                                <span class="material-symbols-outlined">@icon</span>
+                            </div>
+                            <div class="details flex-grow-1 ml-3 overflow-hidden">
+                                <div class="header d-flex align-items-center font-weight-bold">
+                                    <span class="name">@activity.ActivityMessage</span>
+                                    <span class="time text-muted" data-time="@activity.Time"></span>
+                                </div>
+                                <p class="description mt-1">By @activity.AdminName</p>
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
     </div>
 
     @* Projects Section *@
